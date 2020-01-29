@@ -1,0 +1,28 @@
+body {
+    background-color: rgb(230,230,230);
+}
+
+.center-mind {
+  position: absolute;
+  left: 50%;
+  top: 50%;  
+  transform: translate(-50%, -50%); 
+  min-width: 180px;
+}
+
+.table{
+    background-color: ghostwhite;
+}
+
+.flex-container {
+  display: flex;   
+  justify-content: center;
+}
+
+.flex-container > div {  
+  margin: 10px;
+  padding: 20px;
+  
+ 
+  
+}

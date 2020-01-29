@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        // put your code here
-        ?>
-    </body>
-</html>
+<?php
+
+require_once('Config/init.php');
+
+printHTML('html/header.html');
+
+
+if (isLogged()) {
+    printMenu();
+    echo '<div class="container"><p>';
+    printHTML('html/user_welcome.html');
+} else {
+    echo '<div class="container"><p>';
+    printHTML('html/welcome.html');
+}
+
+if (!empty($_SESSION['loginError'])) {
+    echo '<h3 class="text-center text-danger">' . $_SESSION['loginError'] . '</h3>';
+    unset($_SESSION['loginError']);
+}
+
+
+
+
+echo '</div>';
+
+
+printHTML('html/footer.html');
+$con->close();
