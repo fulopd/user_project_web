@@ -6,7 +6,7 @@ printHTML('html/header.html');
 
 
 if (isLogged()) {
-    printMenu();
+    printMenu($con);
     echo '<div class="container"><p>';
     printHTML('html/user_welcome.html');
 } else {

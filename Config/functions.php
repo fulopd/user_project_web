@@ -12,21 +12,55 @@ function isLogged() {
     }
 }
 
-function printMenu() {
+function isHaveRequiredPermission($con, $requiredPermission){
+        
+    $userid = $_SESSION['userid'];
+
+    $sql = "SELECT position_id FROM user_data WHERE id = $userid";
+    $stmt = $con -> prepare($sql);    
+    $stmt -> execute();
+    $stmt -> store_result();    
+    $stmt -> bind_result($position_id);
+    $stmt -> fetch();    
+    
+    $sql = "SELECT position_name, permission_ids FROM position WHERE id = $position_id";
+    $stmt = $con -> prepare($sql);    
+    $stmt -> execute();
+    $stmt -> store_result();    
+    $stmt -> bind_result($position_name, $permission_ids);
+    $stmt -> fetch();
+    
+    $permissions = explode(',', $permission_ids);
+        
+    if (in_array($requiredPermission, $permissions)) {
+        //echo "benne van: ".$requiredPermission;
+        return true;
+    }
+    return false;
+}
+
+function printMenu($con) {
+    
     $menu = file_get_contents('Html/menu.html');
     if (isLogged()) {
-        
-        $menu = str_replace('::ki_belepes',
-                    '<li class="nav-item"> <a class="nav-link text-light" href="beosztas.php">Beosztás </a></li>'
-                .   '<li class="nav-item"> <a class="nav-link text-light" href="userinfo.php">Saját adatok</a></li>'
-                 
-                . '</ul></div>'
-                . '<div class="navbar-collapse">'
+        $menuitems = '';
+        //Beosztás menüpont megjelenítéséhez 2 -es jogosultság szükséges
+        if (isHaveRequiredPermission($con, 2)){
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="beosztas.php">Beosztás </a></li>';
+        }
+        //Saját adatok menüpont megjelenítéséhez 1 -es jogosultság szükséges
+        if (isHaveRequiredPermission($con, 1)){
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="userinfo.php">Saját adatok</a></li>';
+        }
+        $menuitems .= '</ul></div>'
+                    . '<div class="navbar-collapse">'
                     . '<ul class="navbar-nav ml-auto">'
-                        . '<span class="nav-link text-warning">'.$_SESSION['username'].'</span>'
-                        . '<li class="nav-item"> <a class="nav-link text-light" href="logout.php"> Kilép</a> </li>'
+                    . '<span class="nav-link text-warning">'.$_SESSION['username'].'</span>'
+                    . '<li class="nav-item"> <a class="nav-link text-light" href="logout.php"> Kilép</a> </li>'
                     . '</ul>'
-                . '</div>', $menu);
+                    . '</div>';
+        
+        $menu = str_replace('::ki_belepes', $menuitems, $menu);
     } else {
         $menu = str_replace('::ki_belepes', '<li class="nav-item">  <a class="nav-link text-light" href="login.php">Belép</a> </li>', $menu);
     }

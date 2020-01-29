@@ -7,6 +7,12 @@ if(!isLogged()){
     die();
 }
 
+if (!isHaveRequiredPermission($con, 1)){
+    $_SESSION['loginError'] = "Információ megtekintéséhez nincs jogosultsága";     
+    header('Location: index.php');
+    die();
+}
+
 $userid = $_SESSION['userid'];
 $sql = "SELECT * FROM personal_data WHERE id = $userid";
 $res = $con -> query($sql);
@@ -35,9 +41,10 @@ $content .='</div>';
     
 
 printHTML('html/header.html');
-printMenu();
+printMenu($con);
 echo '<div class="container"><p>';
 echo $content;
+isHaveRequiredPermission($con, 21);
 echo '</div">';
 printHTML('html/footer.html');
 
