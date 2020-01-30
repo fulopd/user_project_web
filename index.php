@@ -7,7 +7,7 @@ printHTML('html/header.html');
 if (isLogged()) {
     printMenu();
     echo '<div class="container"><p>';
-    printHTML('html/user_welcome.html');
+    printHTML('html/user_welcome.html');   
 } else {
     echo '<div class="container"><p>';
     printHTML('html/welcome.html');

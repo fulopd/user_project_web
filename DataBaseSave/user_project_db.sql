@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Jan 30. 15:44
--- Kiszolgáló verziója: 10.4.8-MariaDB
--- PHP verzió: 7.1.33
+-- Létrehozás ideje: 2020. Jan 30. 21:43
+-- Kiszolgáló verziója: 10.1.39-MariaDB
+-- PHP verzió: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 --
 
 INSERT INTO `position` (`id`, `position_name`, `priority`, `description`, `permission_ids`, `work_schedules`) VALUES
-(1, 'Supervisor', 30, 'Minden ami jó', '1,3,4,2', '10:00:00');
+(1, 'Supervisor', 30, 'Minden ami jó', '1,2,9', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -109,9 +109,9 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT 0,
-  `sick_leave` tinyint(1) DEFAULT 0,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `paid_leave` tinyint(1) DEFAULT '0',
+  `sick_leave` tinyint(1) DEFAULT '0',
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;

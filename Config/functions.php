@@ -36,6 +36,10 @@ function printMenu() {
         if (isHaveRequiredPermission(1)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="userinfo.php">Saját adatok</a></li>';
         }
+        //Tabló menüpont megjelenítéséhez 9 -es jogosultság szükséges
+        if (isHaveRequiredPermission(9)) {
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="tablo.php">Tabló</a></li>';
+        }
         $menuitems .= '</ul></div>'
                 . '<div class="navbar-collapse">'
                 . '<ul class="navbar-nav ml-auto">'
