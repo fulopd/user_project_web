@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Jan 29. 22:04
--- Kiszolgáló verziója: 10.1.39-MariaDB
--- PHP verzió: 7.3.5
+-- Létrehozás ideje: 2020. Jan 30. 15:44
+-- Kiszolgáló verziója: 10.4.8-MariaDB
+-- PHP verzió: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,14 +36,15 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `permission_name` varchar(50) NOT NULL,
   `description` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `permission`
 --
 
 INSERT INTO `permission` (`id`, `permission_name`, `description`) VALUES
-(1, 'Olvasás - Saját adatok', 'Saját adatok megtekintése');
+(1, 'Olvasás - Saját adatok', 'Saját adatok megtekintése'),
+(2, 'Olvasás - Saját beosztás', 'Saját beosztás megtekintése');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `personal_data` (
 --
 
 INSERT INTO `personal_data` (`id`, `first_name`, `last_name`, `mother`, `birth_date`, `location`, `email`, `phone`, `picture`) VALUES
-(1, 'Első', 'Felhasználó', 'Kovács Emőke', '1987-01-01', 'Szeged', 'elso.felhasznalo@gmail.com', '+36301234567', 'firstprofilimage.jpg');
+(1, 'Első', 'Felhasználó', 'Kelemen Emőke', '1987-01-01', 'Szeged', 'elso.felhasznalo@gmail.com', '+36301234567', 'firstprofilimage.jpg');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 --
 
 INSERT INTO `position` (`id`, `position_name`, `priority`, `description`, `permission_ids`, `work_schedules`) VALUES
-(1, 'Supervisor', 30, 'Minden ami jó', '1,3,4', '10:00:00');
+(1, 'Supervisor', 30, 'Minden ami jó', '1,3,4,2', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -107,13 +108,23 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `paid_leave` tinyint(1) DEFAULT NULL,
-  `sick_leave` tinyint(1) DEFAULT NULL,
-  `update_at` datetime NOT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `paid_leave` tinyint(1) DEFAULT 0,
+  `sick_leave` tinyint(1) DEFAULT 0,
+  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- A tábla adatainak kiíratása `time_table`
+--
+
+INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave`, `sick_leave`, `update_at`) VALUES
+(1, 1, '2020-01-02 06:00:00', '2020-01-02 16:00:00', 0, 0, '2020-01-30 08:47:06'),
+(2, 1, '2020-01-03 00:00:00', NULL, 1, 0, '2020-01-30 08:47:49'),
+(3, 1, '2020-01-04 00:00:00', NULL, 0, 1, '2020-01-30 08:48:44'),
+(4, 1, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-01-30 11:11:42');
 
 -- --------------------------------------------------------
 
