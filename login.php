@@ -16,10 +16,24 @@ if (!empty($_POST['username']) && (!empty($_POST['password']))){
     if ($stmt -> num_rows == 1){
         //belépett
         $stmt -> bind_result($id, $username);
-        $stmt -> fetch();
-        //dd($id);
+        $stmt -> fetch();        
         $_SESSION['userid'] = $id;
         $_SESSION['username'] = $username;
+        
+        //Belépett felhasználó jogosultságainak kiolvasása
+        $sql = "SELECT position.permission_ids FROM position, user_data WHERE user_data.id = $id AND user_data.position_id = position.id";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $stmt->store_result();
+        $stmt->bind_result($permission_ids);
+        $stmt->fetch();
+        
+        $_SESSION['permissionids'] = $permission_ids;
+        
+        
+        
+        
+        
         header('Location: index.php');
     } else {
         //sikertelen a belépés

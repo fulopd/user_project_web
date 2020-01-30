@@ -7,7 +7,7 @@ if(!isLogged()){
     die();
 }
 
-if (!isHaveRequiredPermission($con, 1)){
+if (!isHaveRequiredPermission(1)){
     $_SESSION['loginError'] = "Információ megtekintéséhez nincs jogosultsága";     
     header('Location: index.php');
     die();
@@ -41,10 +41,10 @@ $content .='</div>';
     
 
 printHTML('html/header.html');
-printMenu($con);
+printMenu();
 echo '<div class="container"><p>';
 echo $content;
-isHaveRequiredPermission($con, 21);
+isHaveRequiredPermission(2);
 echo '</div">';
 printHTML('html/footer.html');
 

@@ -12,17 +12,9 @@ function isLogged() {
     }
 }
 
-function isHaveRequiredPermission($con, $requiredPermission) {
+function isHaveRequiredPermission($requiredPermission) {
 
-    $userid = $_SESSION['userid'];
-
-    $sql = "SELECT position.permission_ids FROM position, user_data WHERE user_data.id = $userid AND user_data.position_id = position.id";
-    $stmt = $con->prepare($sql);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($permission_ids);
-    $stmt->fetch();
-
+    $permission_ids = $_SESSION['permissionids'];
     $permissions = explode(',', $permission_ids);
 
     if (in_array($requiredPermission, $permissions)) {        
@@ -31,17 +23,17 @@ function isHaveRequiredPermission($con, $requiredPermission) {
     return false;
 }
 
-function printMenu($con) {
+function printMenu() {
 
     $menu = file_get_contents('Html/menu.html');
     if (isLogged()) {
         $menuitems = '';
         //Beosztás menüpont megjelenítéséhez 2 -es jogosultság szükséges
-        if (isHaveRequiredPermission($con, 2)) {
-            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="beosztas.php">Beosztás </a></li>';
+        if (isHaveRequiredPermission(2)) {
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="own_time_table.php">Beosztás </a></li>';
         }
         //Saját adatok menüpont megjelenítéséhez 1 -es jogosultság szükséges
-        if (isHaveRequiredPermission($con, 1)) {
+        if (isHaveRequiredPermission(1)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="userinfo.php">Saját adatok</a></li>';
         }
         $menuitems .= '</ul></div>'
