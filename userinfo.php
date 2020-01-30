@@ -33,6 +33,9 @@ while ($row = $res -> fetch_assoc()){
             . '<tr><td>Település:</td><td>'.$row['location'].'</td></tr>'
             . '<tr><td>E-mail:</td><td>'.$row['email'].'</td></tr>'
             . '<tr><td>Telefonszám:</td><td>'.$row['phone'].'</td></tr>'
+            . '<tr><td>Felhasználónév:</td><td>'.$_SESSION['username'].'</td></tr>'
+            . '<tr><td>Munkakör:</td><td>'.$_SESSION['position_name'].'</td></tr>'
+            . '<tr><td>Első munkanap:</td><td>'.$_SESSION['first_working_day'].'</td></tr>'
             . '</table>'            
             . '</div>'                           
             . '</div>';
