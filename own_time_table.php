@@ -22,9 +22,9 @@ if (!empty($_POST['year']) && (!empty($_POST['month']))){
      $stop_date = getLastDay($start_date);           
 }else{
     
-    if (!empty($_POST['kezd']) && (!empty($_POST['veg']))){     
-        $start_date = $_POST['kezd'];
-        $stop_date = $_POST['veg'];
+    if (!empty($_POST['start']) && (!empty($_POST['end']))){     
+        $start_date = $_POST['start'];
+        $stop_date = $_POST['end'];
     }else{
         $date_now = date('Y-m-d');              //Aktuális dátum
         $start_date = getFirsDay($date_now);    //hónap első napja
@@ -37,11 +37,11 @@ if (!empty($_POST['year']) && (!empty($_POST['month']))){
 //Legördülő menü adatok
 $years = array();
 $months = array();
-$sql = 'SELECT kezdesido FROM beosztas WHERE userid = '.$userid;
+$sql = 'SELECT start_date FROM time_table WHERE user_id = '.$userid;
 $res = $con -> query($sql);
 
 while ($row = $res -> fetch_assoc()){  
-    $datum = strtotime($row['kezdesido']);    
+    $datum = strtotime($row['start_date']);    
     if (!array_key_exists(date("Y", $datum), $years)){
         $years[date("Y", $datum)] = true;
     }
@@ -54,7 +54,7 @@ ksort($months);
 
 $selector = '<p><form class="form-inline" action="#" method="post">
     <select class="form-control" name="year">
-    <option value="0">Évszám</option>';
+    <option value="0">Év</option>';
     foreach ($years as $key => $value) {
         $selector .=  '<option value="'.$key.'">'.$key.'</option>';
     };
@@ -68,7 +68,7 @@ $selector .='</select> <input class="btn btn-success" type="submit" value="Elkü
         
         
 //Beosztás adatok
-$sql = 'SELECT * FROM beosztas WHERE userid = '.$userid.' AND kezdesido > "'.$start_date.'" AND kezdesido < "'.increaseDateDay($stop_date, 1).'" ORDER BY kezdesido ASC';
+$sql = 'SELECT * FROM time_table WHERE user_id = '.$userid.' AND start_date > "'.$start_date.'" AND start_date < "'.increaseDateDay($stop_date, 1).'" ORDER BY start_date ASC';
 $res = $con -> query($sql);
 if (!$res){
     die('Hiba a lekérdezés végrehajtásában!');
@@ -86,15 +86,38 @@ $content = '<table class="table table-bordered table-hover">'
         . '</thead>';
 
 while ($row = $res -> fetch_assoc()){  
-    $muszakKezdete = strtotime($row['kezdesido']);
-    $muszakVege = strtotime($row['vegeido']);        
-    $mukaido = $muszakVege - $muszakKezdete;  
-    $content .='<tr>'
-                . '<td>'.date("Y.m.d", $muszakKezdete).'</td>'
-                . '<td>'.date("H:i", $muszakKezdete).'</td>'
-                . '<td>'.date("H:i", $muszakVege).'</td>'
-                . '<td>'.(($mukaido/60)/60).'</td>'
+    $workshift_start = strtotime($row['start_date']);
+    $workshift_end = strtotime($row['end_date']);        
+    $working_time = $workshift_end - $workshift_start;  
+    $paid_leave = $row['paid_leave'];
+    $sick_leave = $row['sick_leave'];
+    
+    if ($paid_leave){
+        $content .='<tr>'
+                . '<td>'.date("Y.m.d", $workshift_start).'</td>'
+                . '<td>-</td>'
+                . '<td>-</td>'
+                . '<td>Fizetett szabadság</td>'
             . '</tr>';
+    }else{        
+        if($sick_leave){
+            $content .='<tr>'
+                . '<td>'.date("Y.m.d", $workshift_start).'</td>'
+                . '<td>-</td>'
+                . '<td>-</td>'
+                . '<td>Beteg szabadság</td>'
+            . '</tr>';
+        }else{
+             $content .='<tr>'
+                . '<td>'.date("Y.m.d", $workshift_start).'</td>'
+                . '<td>'.date("H:i", $workshift_start).'</td>'
+                . '<td title="'.date("Y.m.d", $workshift_end).'">'.date("H:i", $workshift_end).'</td>'
+                . '<td>'.(($working_time/60)/60).'</td>'
+            . '</tr>';
+        }
+    }
+    
+    
 }
 $content .='</table>';
 
