@@ -1,5 +1,4 @@
 <?php
-echo session_status();
 require_once('config/init.php');
 
 if(!isLogged()){
@@ -18,20 +17,37 @@ if (!isHaveRequiredPermission(9)){
 
 $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
         . 'FROM personal_data, position, user_data '
-        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id';
+        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+        . 'ORDER BY position.priority ASC';
 $res = $con -> query($sql);
 if (!$res){
     die('Hiba a lekérdezés végrehajtásában!');
 }
 
+$content = '';
+$new_pos = true;
+$new_pos_name = '';
+
 while ($row = $res -> fetch_assoc()){  
-    echo $row['first_name'];
-    echo $row['last_name'];
-    echo $row['picture'];
-    echo $row['position_name'];
-    echo $row['priority'];
-           
-    
+    if($new_pos){
+        $content.= '<h1>'.$row['position_name'].'</h1>';         
+        $content.= '<div class="tablocontaier"><div class="d-flex flex-wrap">';              
+        $new_pos = false;
+        $new_pos_name = $row['position_name'];
+    }else{
+        if($new_pos_name != $row['position_name']){
+            $content .= '</div></div>';
+            $content .= '<h1>'.$row['position_name'].'</h1><br>';   
+            $content .= '<div class="tablocontaier"><div class="d-flex flex-wrap">';
+            $new_pos_name = $row['position_name'];            
+        }
+    }
+    $content .= '<div class="p-2 bd-highlight">';
+        $content .= '<img src="./images/'.$row['picture'].'" class="probaimage"><br>';
+        $content.= $row['first_name'].' ';
+        $content.= $row['last_name'].'<br>';        
+    $content .= '</div>';
+   
 }
 
 
@@ -61,10 +77,10 @@ while ($row = $res -> fetch_assoc()){
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="container">';
+echo '<div class="mycontainer">';
 //printHTML('html/own_time_table_form.html');
 
-echo 'tablo';
+echo $content;
 
 echo '</div>';
 printHTML('html/footer.html');
