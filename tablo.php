@@ -1,4 +1,5 @@
 <?php
+echo session_status();
 require_once('config/init.php');
 
 if(!isLogged()){
