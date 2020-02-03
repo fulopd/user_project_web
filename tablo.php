@@ -18,9 +18,9 @@ if (!isHaveRequiredPermission(9)) {
 $sql = 'SELECT position_name, id FROM position';
 $res = $con->query($sql);
 
-$selector = '<div class="container"><form action="#" method="post"><div class="input-group mb-3">
+$selector = '<div class="input-group mb-3">
                 <div class="input-group-prepend">                
-                    <span class="input-group-text">Szűrés pozíció alapján:</span>
+                    <span class="input-group-text">Szűrés pozíció alapján:&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                 </div>
                 <select class="form-control" name="position">
                 <option value="">Minden</option>';
@@ -31,55 +31,118 @@ while ($row = $res->fetch_assoc()) {
 }
 $selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>';
 
-//Szűrő feltételek
-if (!empty($_POST['position'])) {
-    //Legördülő menü alapján pozició szerinti listázás
-    $position_id = $_POST['position'];
-   
-    $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-            . 'FROM personal_data, position, user_data '
-            . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND position.id LIKE ' . $position_id . ' '
-            . 'ORDER BY position.priority ASC';
-} else {
+/*
+  //Szűrő feltételek
+  if (!empty($_POST['position'])) {
+  //Legördülő menü alapján pozició szerinti listázás
+  $position_id = $_POST['position'];
 
-    if (!empty($_POST['date']) && !empty($_POST['time'])) {
-        //Adott időpillanatban dolgozók listája
-        $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
-        
-        $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-                . 'FROM personal_data, position, user_data, time_table '
-                . 'WHERE user_data.personal_data_id = personal_data.id '
-                . 'AND user_data.position_id = position.id '
-                . 'AND time_table.user_id = user_data.id '
-                . 'AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date '
-                . 'ORDER BY position.priority ASC';
-    } else {
-        
-        
-        if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
-            $search_first_name = $_POST['searchFirstName'];
-            $search_last_name = $_POST['searchLastName'];
-            //Keressé név alapján
-            $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-                . 'FROM personal_data, position, user_data '
-                . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
-                . 'AND personal_data.last_name LIKE "%'.$search_last_name.'%" '
-                . 'AND personal_data.first_name LIKE "%'.$search_first_name.'%" '
-                . 'ORDER BY position.priority ASC';
-            
-        }else{
-            //Minden dolgozó
-            $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-                . 'FROM personal_data, position, user_data '
-                . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
-                . 'ORDER BY position.priority ASC';
-        }
-        
-    }
+  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+  . 'FROM personal_data, position, user_data '
+  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND position.id LIKE ' . $position_id . ' '
+  . 'ORDER BY position.priority ASC';
+  } else {
+
+  if (!empty($_POST['date']) && !empty($_POST['time'])) {
+  //Adott időpillanatban dolgozók listája
+  $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
+
+  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+  . 'FROM personal_data, position, user_data, time_table '
+  . 'WHERE user_data.personal_data_id = personal_data.id '
+  . 'AND user_data.position_id = position.id '
+  . 'AND time_table.user_id = user_data.id '
+  . 'AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date '
+  . 'ORDER BY position.priority ASC';
+  } else {
+
+
+  if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
+  $search_first_name = $_POST['searchFirstName'];
+  $search_last_name = $_POST['searchLastName'];
+  //Keressé név alapján
+  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+  . 'FROM personal_data, position, user_data '
+  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+  . 'AND personal_data.last_name LIKE "%'.$search_last_name.'%" '
+  . 'AND personal_data.first_name LIKE "%'.$search_first_name.'%" '
+  . 'ORDER BY position.priority ASC';
+
+  }else{
+  //Minden dolgozó
+  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+  . 'FROM personal_data, position, user_data '
+  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+  . 'ORDER BY position.priority ASC';
+  }
+
+  }
+  }
+
+ */
+
+/*
+
+$position_id = '%';
+$date_time_value = '%';
+$search_first_name = '%';
+$search_last_name = '%';
+
+if (!empty($_POST['position'])) {
+    $position_id = $_POST['position'];
+}
+
+if (!empty($_POST['date']) && !empty($_POST['time'])) {
+    $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
+}
+
+if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
+    $search_first_name = $_POST['searchFirstName'];
+    $search_last_name = $_POST['searchLastName'];
+}
+
+$sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+        . 'FROM personal_data, position, user_data, time_table '
+        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+        . 'AND position.id LIKE "' . $position_id . '" '
+        . 'AND time_table.user_id = user_data.id '
+        . 'AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date '
+        . 'AND personal_data.last_name LIKE "%' . $search_last_name . '%" '
+        . 'AND personal_data.first_name LIKE "%' . $search_first_name . '%" '
+        . 'ORDER BY position.priority ASC';
+
+*/
+
+$query_position = '';
+$query_date_time = '';
+$query_name = '';
+$query_FROM = 'FROM personal_data, position, user_data ';
+
+if (!empty($_POST['position'])) {
+    $position_id = $_POST['position'];
+    $query_position = 'AND position.id = "' . $position_id . '" ';
+}
+
+if (!empty($_POST['date']) && !empty($_POST['time'])) {
+    $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
+    $query_FROM = 'FROM personal_data, position, user_data, time_table ';
+    $query_date_time = 'AND time_table.user_id = user_data.id AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date ';
+}
+
+if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
+    $search_first_name = $_POST['searchFirstName'];
+    $search_last_name = $_POST['searchLastName'];
+    $query_name = 'AND personal_data.last_name LIKE "%' . $search_last_name . '%" AND personal_data.first_name LIKE "%' . $search_first_name . '%" ';
 }
 
 
-
+$sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+        . $query_FROM
+        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+        . $query_position
+        . $query_date_time
+        . $query_name
+        . 'ORDER BY position.priority ASC';
 
 
 $res = $con->query($sql);
@@ -94,24 +157,24 @@ $new_pos_name = '';
 while ($row = $res->fetch_assoc()) {
     if ($new_pos) {
         //Első pozíció kiíratása
-        $content .= '<h1>' . $row['position_name'] . '</h1>';
-        $content .= '<div class="tablocontaier"><div class="d-flex flex-wrap">';
+        $content .= '<div class="tablopositiontext"><h1>' . $row['position_name'] . '</h1></div>';
+        $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
         $new_pos = false;
         $new_pos_name = $row['position_name'];
     } else {
         //Elsőtől eltérő pozíció kiíratása
         if ($new_pos_name != $row['position_name']) {
             $content .= '</div></div>';
-            $content .= '<h1>' . $row['position_name'] . '</h1><br>';
-            $content .= '<div class="tablocontaier"><div class="d-flex flex-wrap">';
+            $content .= '<div class="tablopositiontext"><h1>' . $row['position_name'] . '</h1></div>';
+            $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
             $new_pos_name = $row['position_name'];
         }
     }
     //Kép és adatok kiíratása
-    $content .= '<div class="p-2 bd-highlight">';
-    $content .= '<img src="./images/' . $row['picture'] . '" class="probaimage"><br>';
+    $content .= '<div class="p-2">';
+    $content .= '<img src="./images/' . $row['picture'] . '" class="tabloimage"><br><h2>';
     $content .= $row['first_name'] . ' ';
-    $content .= $row['last_name'] . '<br>';
+    $content .= $row['last_name'] . '</h2><br>';
     $content .= '</div>';
 }
 

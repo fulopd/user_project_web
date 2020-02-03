@@ -27,15 +27,18 @@ body {
 
 .mycontainer{
     width: 80%;
-    margin: auto;   
-}
-
-.tablocontaier{
-    width: 100%;
     margin: auto;
 }
 
-.probaimage{
+.tabloRowContaier{
+    width: 100%;
+    margin: auto;    
+    padding: 15px;
+}
+.tablopositiontext{
+    margin-top: 50px;
+}
+.tabloimage{
     width: 300px;
     height: 300px;
 }
