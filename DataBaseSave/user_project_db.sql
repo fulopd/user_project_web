@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Jan 31. 15:44
+-- Létrehozás ideje: 2020. Feb 03. 15:21
 -- Kiszolgáló verziója: 10.4.8-MariaDB
 -- PHP verzió: 7.1.33
 
@@ -64,21 +64,22 @@ CREATE TABLE IF NOT EXISTS `personal_data` (
   `phone` varchar(15) DEFAULT NULL,
   `picture` varchar(150) DEFAULT 'profile.jpg',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `personal_data`
 --
 
 INSERT INTO `personal_data` (`id`, `first_name`, `last_name`, `mother`, `birth_date`, `location`, `email`, `phone`, `picture`) VALUES
-(1, 'Első', 'Felhasználó', 'Kelemen Emőke', '1987-01-01', 'Szeged', 'elso.felhasznalo@gmail.com', '+36301234567', 'profile.jpg'),
-(2, 'Alma', 'Adél', 'Bubba Bubi', '1964-03-22', 'Kecskemét', 'adi64@freemail.hu', NULL, 'profile.jpg'),
+(1, 'Első', 'Felhasználó', 'Kelemen Emőke', '1987-01-01', 'Szeged', 'elso.felhasznalo@gmail.com', '+36301234567', '1.jpg'),
+(2, 'Bubi', 'Adél', 'Bubba Bubi', '1964-03-22', 'Kecskemét', 'adi64@freemail.hu', NULL, 'profile.jpg'),
 (3, 'Tollas', 'Béla', 'Béláné', '2020-01-01', 'Szeged', 'bela@gmail.com', '036301224557', 'profile.jpg'),
 (4, 'Heladi', 'Piroska', 'Árpád Enikő', '1987-01-01', 'Szeged', 'zellerke21@gmail.com', '03620544788', 'profile.jpg'),
 (5, 'Koronás', 'Géza', 'Hamo Ilona', '1984-03-03', 'Kerekerdő', 'bocika@gmail.com', '0123456789', 'profile.jpg'),
 (6, 'Fele', 'Botond', 'Kiss Éva', '1965-01-01', 'Szeged', 'kevebocs@gmail.com', '+36547884115', 'profile.jpg'),
 (7, 'Katyusá', 'Annamária', 'Ismeretlen', '1977-02-05', 'Röszke', 'annus44@gmail.com', '+36504115887', 'profile.jpg'),
-(8, 'Pecek', 'Gerda', 'Puti Ibolya', '1978-05-05', 'Szeged', 'gerda@gmail.com', '+36506552118', 'profile.jpg');
+(8, 'Bubi', 'Gerda', 'Puti Ibolya', '1978-05-05', 'Szeged', 'gerda@gmail.com', '+36506552118', 'profile.jpg'),
+(9, 'Tollas', 'Benedek', 'Szegfű Annamária', '2020-02-02', 'szeged', 'Benedek@gmail.com', '+36204117884', 'profile.jpg');
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `position` (
   `permission_ids` varchar(100) NOT NULL,
   `work_schedules` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `position`
@@ -103,7 +104,8 @@ CREATE TABLE IF NOT EXISTS `position` (
 
 INSERT INTO `position` (`id`, `position_name`, `priority`, `description`, `permission_ids`, `work_schedules`) VALUES
 (1, 'Supervisor', 30, 'Minden ami jó', '1,2,9', '10:00:00'),
-(2, 'Járatszedő', 100, 'Járatok összekészítésért felelős', '1', '12:00:00');
+(2, 'Járatszedő', 100, 'Járatok összekészítésért felelős', '1,2', '12:00:00'),
+(3, 'Végellenőr', 70, 'Járatok ellenőrzése', '1,2', '12:00:00');
 
 -- --------------------------------------------------------
 
@@ -122,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `time_table`
@@ -132,7 +134,9 @@ INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave
 (1, 1, '2020-01-02 06:00:00', '2020-01-02 16:00:00', 0, 0, '2020-01-30 08:47:06'),
 (2, 1, '2020-01-03 00:00:00', NULL, 1, 0, '2020-01-30 08:47:49'),
 (3, 1, '2020-01-04 00:00:00', NULL, 0, 1, '2020-01-30 08:48:44'),
-(4, 1, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-01-30 11:11:42');
+(4, 1, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-01-30 11:11:42'),
+(5, 7, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-02-03 12:39:16'),
+(6, 3, '2020-02-02 06:00:00', '2020-02-02 18:00:00', 0, 0, '2020-02-03 12:40:00');
 
 -- --------------------------------------------------------
 
@@ -152,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `user_data` (
   PRIMARY KEY (`id`),
   KEY `personal_data_id` (`personal_data_id`),
   KEY `position_id` (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `user_data`
@@ -166,7 +170,8 @@ INSERT INTO `user_data` (`id`, `personal_data_id`, `user_name`, `password`, `fir
 (5, 5, 'kori', 'kori', '2020-01-07', NULL, 1),
 (6, 6, 'boti', 'boti', '2020-01-11', NULL, 2),
 (7, 7, 'annus', 'annus', '2020-01-20', NULL, 2),
-(8, 8, 'gere', 'gere', '2020-01-29', NULL, 2);
+(8, 8, 'gere', 'gere', '2020-01-29', NULL, 2),
+(9, 9, 'benedek', 'benedek', '2020-02-03', NULL, 3);
 
 --
 -- Megkötések a kiírt táblákhoz
