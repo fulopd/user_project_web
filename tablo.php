@@ -35,17 +35,17 @@ $selector .= '</select></div><input class="btn btn-success" type="submit" value=
 if (!empty($_POST['position'])) {
     //Legördülő menü alapján pozició szerinti listázás
     $position_id = $_POST['position'];
-    
+   
     $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
             . 'FROM personal_data, position, user_data '
-            . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND position.id = ' . $position_id . ' '
+            . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND position.id LIKE ' . $position_id . ' '
             . 'ORDER BY position.priority ASC';
 } else {
 
     if (!empty($_POST['date']) && !empty($_POST['time'])) {
         //Adott időpillanatban dolgozók listája
         $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
-
+        
         $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
                 . 'FROM personal_data, position, user_data, time_table '
                 . 'WHERE user_data.personal_data_id = personal_data.id '
