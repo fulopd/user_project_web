@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 03. 20:56
--- Kiszolgáló verziója: 10.1.39-MariaDB
--- PHP verzió: 7.3.5
+-- Létrehozás ideje: 2020. Feb 04. 15:39
+-- Kiszolgáló verziója: 10.4.8-MariaDB
+-- PHP verzió: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -23,6 +23,22 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `user_project_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `user_project_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `news`
+--
+
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `author` int(11) NOT NULL,
+  `content` mediumtext NOT NULL,
+  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `author` (`author`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -77,7 +93,7 @@ INSERT INTO `personal_data` (`id`, `first_name`, `last_name`, `mother`, `birth_d
 (4, 'Heladi', 'Piroska', 'Árpád Enikő', '1987-01-01', 'Szeged', 'zellerke21@gmail.com', '03620544788', '4.jpg'),
 (5, 'Koronás', 'Géza', 'Hamo Ilona', '1984-03-03', 'Kerekerdő', 'bocika@gmail.com', '0123456789', '5.jpg'),
 (6, 'Fele', 'Botond', 'Kiss Éva', '1965-01-01', 'Szeged', 'kevebocs@gmail.com', '+36547884115', '6.jpg'),
-(7, 'Katyusá', 'Annamária', 'Ismeretlen', '1977-02-05', 'Röszke', 'annus44@gmail.com', '+36504115887', 'profile.jpg'),
+(7, 'Katyusa', 'Annamária', 'Ismeretlen', '1977-02-05', 'Röszke', 'annus44@gmail.com', '+36504115887', 'profile.jpg'),
 (8, 'Bubi', 'Gerda', 'Puti Ibolya', '1978-05-05', 'Szeged', 'gerda@gmail.com', '+36506552118', 'profile.jpg'),
 (9, 'Tollas', 'Benedek', 'Szegfű Annamária', '2020-02-02', 'szeged', 'Benedek@gmail.com', '+36204117884', '8.png');
 
@@ -119,12 +135,12 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT '0',
-  `sick_leave` tinyint(1) DEFAULT '0',
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paid_leave` tinyint(1) DEFAULT 0,
+  `sick_leave` tinyint(1) DEFAULT 0,
+  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `time_table`
@@ -136,7 +152,19 @@ INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave
 (3, 1, '2020-01-04 00:00:00', NULL, 0, 1, '2020-01-30 08:48:44'),
 (4, 1, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-01-30 11:11:42'),
 (5, 7, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-02-03 12:39:16'),
-(6, 3, '2020-02-02 06:00:00', '2020-02-02 18:00:00', 0, 0, '2020-02-03 12:40:00');
+(6, 3, '2020-02-02 06:00:00', '2020-02-02 18:00:00', 0, 0, '2020-02-03 12:40:00'),
+(7, 1, '2020-05-13 06:00:00', '2020-05-13 16:00:00', 0, 0, '2020-02-04 10:21:55'),
+(8, 1, '2020-02-05 06:00:00', '2020-02-05 16:00:00', 0, 0, '2020-02-04 10:24:17'),
+(9, 1, '2020-02-04 06:00:00', '2020-02-04 16:00:00', 0, 0, '2020-02-04 10:25:09'),
+(10, 2, '2020-02-06 18:00:00', '2020-02-07 06:00:00', 0, 0, '2020-02-04 11:40:01'),
+(11, 3, '2020-02-05 05:00:00', '2020-02-05 16:00:00', 0, 0, '2020-02-04 11:40:34'),
+(12, 4, '2020-02-05 06:00:00', '2020-02-05 16:00:00', 0, 0, '2020-02-04 11:41:02'),
+(13, 5, '2020-02-11 06:00:00', '2020-02-11 16:00:00', 0, 0, '2020-02-04 11:41:32'),
+(14, 6, '2020-02-10 18:00:00', '2020-02-11 06:00:00', 0, 0, '2020-02-04 11:41:53'),
+(15, 7, '2020-02-10 06:00:00', '2020-02-10 16:00:00', 0, 0, '2020-02-04 11:42:22'),
+(16, 8, '2020-02-04 18:00:00', '2020-02-05 06:00:00', 0, 0, '2020-02-04 11:43:15'),
+(17, 9, '2020-02-13 06:00:00', '2020-02-13 16:00:00', 0, 0, '2020-02-04 11:43:40'),
+(18, 7, '2020-02-04 06:00:00', '2020-02-06 18:00:00', 0, 0, '2020-02-04 13:25:03');
 
 -- --------------------------------------------------------
 
@@ -176,6 +204,12 @@ INSERT INTO `user_data` (`id`, `personal_data_id`, `user_name`, `password`, `fir
 --
 -- Megkötések a kiírt táblákhoz
 --
+
+--
+-- Megkötések a táblához `news`
+--
+ALTER TABLE `news`
+  ADD CONSTRAINT `news_ibfk_1` FOREIGN KEY (`author`) REFERENCES `user_data` (`id`);
 
 --
 -- Megkötések a táblához `time_table`

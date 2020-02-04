@@ -5,10 +5,10 @@ printHTML('html/header.html');
 
 
 if (isLogged()) {
-    printMenu();
-    echo '<div class="container"><p>';
-    printHTML('html/user_welcome.html');   
+    //bejelentkezve
+   header('Location: news.php');
 } else {
+    //kijelentkezve
     echo '<div class="container"><p>';
     printHTML('html/welcome.html');
 }

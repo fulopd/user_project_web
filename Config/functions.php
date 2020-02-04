@@ -75,3 +75,13 @@ function getLastDay($date) {
 function increaseDateDay($date, $day) {
     return date('Y-m-d', strtotime($date . ' +' . $day . ' day'));
 }
+
+
+function currentlyAtWork($startDate, $endDate){
+    $testedDate = date('Y-m-d G:i');        
+    if($startDate < $testedDate && $endDate > $testedDate){
+        return true;
+    }else{
+        return false;
+    }
+}

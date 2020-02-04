@@ -10,7 +10,7 @@ if (!isLogged()) {
 
 if (!isHaveRequiredPermission(9)) {
     $_SESSION['loginError'] = "Információ megtekintéséhez nincs jogosultsága";
-    header('Location: index.php');
+    header('Location: logout.php');
     die();
 }
 
@@ -80,7 +80,6 @@ $selector .= '</select></div><input class="btn btn-success" type="submit" value=
   }
 
  */
-
 /*
 
 $position_id = '%';
@@ -111,7 +110,9 @@ $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.
         . 'AND personal_data.first_name LIKE "%' . $search_first_name . '%" '
         . 'ORDER BY position.priority ASC';
 
-*/
+
+echo $sql;*/
+
 
 $query_position = '';
 $query_date_time = '';
@@ -136,7 +137,7 @@ if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
 }
 
 
-$sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
+$sql = 'SELECT user_data.id, user_data.user_name, personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
         . $query_FROM
         . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
         . $query_position
@@ -144,8 +145,16 @@ $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.
         . $query_name
         . 'ORDER BY position.priority ASC';
 
+$sql2 = 'SELECT time_table.start_date, time_table.end_date, TIMEDIFF(time_table.start_date, now()) as "elteres" FROM time_table '
+            . 'WHERE time_table.user_id = ? '
+            . 'AND ((time_table.start_date <= now() AND time_table.end_date >= now()) '
+            . 'OR time_table.start_date >= now()) '
+            . 'AND (time_table.paid_leave = 0 AND time_table.sick_leave = 0) '
+            . 'ORDER BY elteres ASC '
+            . 'LIMIT 1';
 
 $res = $con->query($sql);
+
 if (!$res) {
     die('Hiba a lekérdezés végrehajtásában!');
 }
@@ -155,6 +164,14 @@ $new_pos = true;
 $new_pos_name = '';
 
 while ($row = $res->fetch_assoc()) {
+
+    $stmt = $con->prepare($sql2);
+    $stmt->bind_param('i', $row['id']);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($start, $stop, $temp);
+    $stmt->fetch();
+    
     if ($new_pos) {
         //Első pozíció kiíratása
         $content .= '<div class="tablopositiontext"><h1>' . $row['position_name'] . '</h1></div>';
@@ -171,10 +188,19 @@ while ($row = $res->fetch_assoc()) {
         }
     }
     //Kép és adatok kiíratása
-    $content .= '<div class="p-2">';
-    $content .= '<img src="./images/' . $row['picture'] . '" class="tabloimage"><br><h2>';
-    $content .= $row['first_name'] . ' ';
-    $content .= $row['last_name'] . '</h2><br>';
+    //New line char: &#xa;
+    if(currentlyAtWork($start, $stop)){
+        $info_text = 'Igen';
+    }else{
+        $info_text = 'Nem&#xa;Következő munkanap:&#xa;'.$start;
+    }
+    //$content .=   '<div class="tabloImageBox" style="background-image:url("./images/' . $row['picture'] . '")">';
+    $content .= '<div class="tabloImageBox" style="background-image: url(images/' . $row['picture'] . ')" '
+            . 'data-text="'.$row['first_name'].' '.$row['last_name'].'&#xa;'
+            . 'Jelenleg munkában van: '
+            . $info_text.''
+            . '&#xa;Felhasználónév: '.$row['user_name'].''
+            . '">';    
     $content .= '</div>';
 }
 
