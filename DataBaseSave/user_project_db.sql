@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 04. 15:39
--- Kiszolgáló verziója: 10.4.8-MariaDB
--- PHP verzió: 7.1.33
+-- Létrehozás ideje: 2020. Feb 04. 21:45
+-- Kiszolgáló verziója: 10.1.39-MariaDB
+-- PHP verzió: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,10 +35,19 @@ CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` int(11) NOT NULL,
   `content` mediumtext NOT NULL,
-  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `author` (`author`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- A tábla adatainak kiíratása `news`
+--
+
+INSERT INTO `news` (`id`, `author`, `content`, `creation_date`) VALUES
+(1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum molestie purus, in posuere erat finibus eu. Sed luctus quis libero non euismod. Ut sit amet egestas lectus. Sed pulvinar dui ac libero porta rhoncus. Nunc blandit risus ligula, nec accumsan tortor aliquam et. Donec luctus, purus quis vulputate commodo, risus libero posuere odio, vel dignissim lacus augue et mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam vulputate nunc id nisl congue aliquet. Maecenas et odio a erat ullamcorper tempor. Suspendisse facilisis nec justo non faucibus. Sed feugiat consectetur luctus.', '2020-02-04 17:28:28'),
+(2, 1, '<p>Sziasztok,</p>\r\n<p>Ezzel a bejegyz&eacute;ssel szeretn&eacute;m tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyz&eacute;sben.</p>\r\n<ol>\r\n<li>Ha minden j&oacute;l megy</li>\r\n<li>Ez egy felsorol&aacute;s lesz.</li>\r\n</ol>\r\n<p><strong>Ez a sz&ouml;vegr&eacute;sz ki lesz emelve.</strong></p>\r\n<p style=\"text-align: center;\">&Eacute;s h&aacute;t egy kis k&ouml;z&eacute;pre igaz&iacute;t&eacute;s sem maradhat ki a sorb&oacute;l :)</p>\r\n<p style=\"text-align: left;\">Rem&eacute;lem a sort&ouml;r&eacute;sek is megmaradnak.&nbsp;<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', '2020-02-04 18:01:29'),
+(3, 1, 'Na majd most \r\nTalánnnn', '2020-02-04 18:53:06');
 
 -- --------------------------------------------------------
 
@@ -52,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `permission_name` varchar(50) NOT NULL,
   `description` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `permission`
@@ -60,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `permission` (
 
 INSERT INTO `permission` (`id`, `permission_name`, `description`) VALUES
 (1, 'Olvasás - Saját adatok', 'Saját adatok megtekintése'),
-(2, 'Olvasás - Saját beosztás', 'Saját beosztás megtekintése');
+(2, 'Olvasás - Saját beosztás', 'Saját beosztás megtekintése'),
+(3, 'Írás - Hírek', 'Kezdőoldalon megjelenő hírek írása és módosítása');
 
 -- --------------------------------------------------------
 
@@ -119,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 --
 
 INSERT INTO `position` (`id`, `position_name`, `priority`, `description`, `permission_ids`, `work_schedules`) VALUES
-(1, 'Supervisor', 30, 'Minden ami jó', '1,2,9', '10:00:00'),
+(1, 'Supervisor', 30, 'Minden ami jó', '1,2,3,9', '10:00:00'),
 (2, 'Járatszedő', 100, 'Járatok összekészítésért felelős', '1,2', '12:00:00'),
 (3, 'Végellenőr', 70, 'Járatok ellenőrzése', '1,2', '12:00:00');
 
@@ -135,9 +145,9 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT 0,
-  `sick_leave` tinyint(1) DEFAULT 0,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `paid_leave` tinyint(1) DEFAULT '0',
+  `sick_leave` tinyint(1) DEFAULT '0',
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;

@@ -40,6 +40,10 @@ function printMenu() {
         if (isHaveRequiredPermission(9)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="tablo.php">Tabló</a></li>';
         }
+        //Hírek kezelése menüpont megjelenítéséhez 3 -es jogosultság szükséges
+        if (isHaveRequiredPermission(3)) {
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="news_controller.php">Hírek kezelése</a></li>';
+        }
         $menuitems .= '</ul></div>'
                 . '<div class="navbar-collapse">'
                 . '<ul class="navbar-nav ml-auto">'
