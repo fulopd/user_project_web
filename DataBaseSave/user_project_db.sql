@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 04. 21:45
--- Kiszolgáló verziója: 10.1.39-MariaDB
--- PHP verzió: 7.3.5
+-- Létrehozás ideje: 2020. Feb 05. 15:48
+-- Kiszolgáló verziója: 10.4.8-MariaDB
+-- PHP verzió: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,20 +34,38 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
   `content` mediumtext NOT NULL,
-  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `public` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `author` (`author`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `news`
 --
 
-INSERT INTO `news` (`id`, `author`, `content`, `creation_date`) VALUES
-(1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum molestie purus, in posuere erat finibus eu. Sed luctus quis libero non euismod. Ut sit amet egestas lectus. Sed pulvinar dui ac libero porta rhoncus. Nunc blandit risus ligula, nec accumsan tortor aliquam et. Donec luctus, purus quis vulputate commodo, risus libero posuere odio, vel dignissim lacus augue et mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam vulputate nunc id nisl congue aliquet. Maecenas et odio a erat ullamcorper tempor. Suspendisse facilisis nec justo non faucibus. Sed feugiat consectetur luctus.', '2020-02-04 17:28:28'),
-(2, 1, '<p>Sziasztok,</p>\r\n<p>Ezzel a bejegyz&eacute;ssel szeretn&eacute;m tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyz&eacute;sben.</p>\r\n<ol>\r\n<li>Ha minden j&oacute;l megy</li>\r\n<li>Ez egy felsorol&aacute;s lesz.</li>\r\n</ol>\r\n<p><strong>Ez a sz&ouml;vegr&eacute;sz ki lesz emelve.</strong></p>\r\n<p style=\"text-align: center;\">&Eacute;s h&aacute;t egy kis k&ouml;z&eacute;pre igaz&iacute;t&eacute;s sem maradhat ki a sorb&oacute;l :)</p>\r\n<p style=\"text-align: left;\">Rem&eacute;lem a sort&ouml;r&eacute;sek is megmaradnak.&nbsp;<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', '2020-02-04 18:01:29'),
-(3, 1, 'Na majd most \r\nTalánnnn', '2020-02-04 18:53:06');
+INSERT INTO `news` (`id`, `author`, `title`, `content`, `public`, `creation_date`) VALUES
+(1, 1, '321', 'update', 1, '2020-02-01 11:11:00'),
+(2, 1, 'HTML teszt bejegyzés', '<p>Sziasztok,</p>\r\n<p>Ezzel a bejegyz&eacute;ssel szeretn&eacute;m tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyz&eacute;sben.</p>\r\n<ol>\r\n<li>Ha minden j&oacute;l megy</li>\r\n<li>Ez egy felsorol&aacute;s lesz.</li>\r\n</ol>\r\n<p><strong>Ez a sz&ouml;vegr&eacute;sz ki lesz emelve.</strong></p>\r\n<p style=\"text-align: center;\">&Eacute;s h&aacute;t egy kis k&ouml;z&eacute;pre igaz&iacute;t&eacute;s sem maradhat ki a sorb&oacute;l :)</p>\r\n<p style=\"text-align: left;\">Rem&eacute;lem a sort&ouml;r&eacute;sek is megmaradnak.&nbsp;<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', 0, '2020-02-04 18:01:29'),
+(3, 1, 'Ezt már oldalról töltöttem fel', 'Na majd most \r\nTalánnnn', 0, '2020-02-04 18:53:06'),
+(4, 1, '', 'Ez már a create php -ból kerül feltöltésre\r\nés van jelölő box is hogy kilegyen e rakva a főoldalra\r\namit kiveszek hogy ne legyen kirakva', 0, '2020-02-05 11:34:57'),
+(5, 1, '', 'ez ki fog menni', 1, '2020-02-05 11:35:44'),
+(6, 1, '', 'checkbox jooo csak a Title nem lett bekötve :)', 1, '2020-02-05 11:37:38'),
+(7, 1, 'dweedfwef', 'wefwefwefwef', 1, '2020-02-05 11:38:59'),
+(8, 1, 'dfgdfgdfg', 'sdfgdsfgdsfg', 0, '2020-02-05 11:45:02'),
+(9, 1, 'vvvvvvvvvv', 'vvvvvvvvvvvvvv', 0, '2020-02-05 11:45:53'),
+(10, 1, 'vvvvvvvvvv', 'vvvvvvvvvvvvvv', 0, '2020-02-05 11:46:40'),
+(11, 1, 'fgdfg', 'dfgdfgdfg', 1, '2020-02-05 11:46:49'),
+(12, 1, 'fgdfg', 'dfgdfgdfg', 1, '2020-02-05 11:49:14'),
+(13, 1, 'sdfsdf', 'dsfsdfsdf', 1, '2020-02-05 11:49:20'),
+(14, 1, '333', '3333', 1, '2020-02-05 11:49:29'),
+(15, 1, 'yyyyyyyyyy', 'yyyyyyyyyyyy', 0, '2020-02-05 11:50:04'),
+(16, 1, 'yyyyywwwwww', 'wwwwwwwwwwwwwwwww', 0, '2020-02-05 11:50:12'),
+(17, 1, 'aaaaaa', 'aaaaaaaaaaa', 1, '2020-02-05 11:50:34'),
+(18, 1, 'sdsadasdsa', 'asdasdasd', 0, '2020-02-05 11:50:39'),
+(19, 1, 'qwe', 'asd', 1, '2020-02-05 12:31:38');
 
 -- --------------------------------------------------------
 
@@ -145,9 +163,9 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT '0',
-  `sick_leave` tinyint(1) DEFAULT '0',
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paid_leave` tinyint(1) DEFAULT 0,
+  `sick_leave` tinyint(1) DEFAULT 0,
+  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;

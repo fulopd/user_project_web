@@ -28,8 +28,11 @@ if (!$res) {
 $content = '<table class="table table-bordered table-hover">'
         . '<thead class="thead-light">'
         . '<tr>'
+        . '<th>Megjelenítés</th>'
         . '<th>Létrehozás dátuma</th>'
+        . '<th>Cím</th>'
         . '<th>Tartalom</th>'
+        . '<th>Szerkesztés</th>'
         . '</tr>'
         . '</thead>';
 
@@ -37,10 +40,18 @@ while ($row = $res->fetch_assoc()) {
     $comment = substr($row['content'], 0, 100);
     $comment = str_replace('<', '&lt;', $comment);
     $comment = str_replace('>', '&gt;', $comment);
-    
+    $public = $row['public']?'checked':'';
     $content .= '<tr>'
+            . '<td><input type="checkbox" name="" value="" '.$public.' disabled></td>'
             . '<td>' . $row['creation_date'] . '</td>'
+            . '<td>' . $row['title'] . '</td>'
             . '<td>' . $comment . '</td>'
+            . '<td>'
+                . '<form action="news_update.php" method="post">'
+                . '<input type="hidden" name="news_id" value="'.$row['id'].'">'
+                . '<input class="btn btn-outline-secondary" type="submit" value="Szerkesztés">'
+                . '</form>'                 
+            . '</td>'
             . '</tr>';
 }
 $content .= '</table>';

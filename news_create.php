@@ -19,10 +19,12 @@ if (!isHaveRequiredPermission(3)) {
 
 if (!empty($_POST['comment'])) {
     $userid = $_SESSION['userid'];
-    $comment = $_POST['comment'];
-    $sql = "INSERT INTO news (author, content) VALUES ('$userid', '$comment')";
+    $title = $_POST['title'];
+    $comment = $_POST['comment'];    
+    $public = empty($_POST['public'])?0:1;    
+    $sql = "INSERT INTO news (author, title, content, public) VALUES ('$userid', '$title', '$comment', '$public')";
 
-    if ($con->query($sql) === TRUE) {
+    if ($con->query($sql) === TRUE) {        
         header('Location: news.php');
     } else {
         $_SESSION['loginError'] = "Az új hír hozzáadása sikertelen!";

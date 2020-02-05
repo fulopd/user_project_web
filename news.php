@@ -8,10 +8,11 @@ if (!isLogged()) {
     die();
 }
 
-$sql = 'SELECT personal_data.first_name, personal_data.last_name, news.content, news.creation_date '
+$sql = 'SELECT personal_data.first_name, personal_data.last_name, news.title, news.content, news.creation_date '
         . 'FROM personal_data, user_data, news '
-        . 'WHERE user_data.personal_data_id = personal_data.id '
+        . 'WHERE user_data.personal_data_id = personal_data.id '        
         . 'AND news.author = user_data.id '
+        . 'AND news.public = 1 '
         . 'ORDER BY news.creation_date DESC';
 
 
@@ -26,7 +27,8 @@ while ($row = $res->fetch_assoc()) {
     
     $content .= '<div class="card-deck">'
             . '<div class="card m-2 p-2">'
-            . '<h5 class="card-title">' . $row['creation_date'] . '</h5>'
+            . '<h2 class="card-title">' . $row['title'] . '</h2>'
+            . '<h5">' . $row['creation_date'] . '</h5>'
             . '<p>' . $row['content'] . '</p>'            
             . '<h5 class="text-right">' . $row['first_name'] . ' ' . $row['last_name'] . '</h5>'
             . '</div>'
