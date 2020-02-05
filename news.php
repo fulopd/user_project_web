@@ -28,7 +28,7 @@ while ($row = $res->fetch_assoc()) {
     $content .= '<div class="card-deck">'
             . '<div class="card m-2 p-2">'
             . '<h2 class="card-title">' . $row['title'] . '</h2>'
-            . '<h5">' . $row['creation_date'] . '</h5>'
+            . '<h6>' . $row['creation_date'] . '</h6>'
             . '<p>' . $row['content'] . '</p>'            
             . '<h5 class="text-right">' . $row['first_name'] . ' ' . $row['last_name'] . '</h5>'
             . '</div>'

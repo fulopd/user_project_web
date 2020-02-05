@@ -31,89 +31,8 @@ while ($row = $res->fetch_assoc()) {
 }
 $selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>';
 
-/*
-  //Szűrő feltételek
-  if (!empty($_POST['position'])) {
-  //Legördülő menü alapján pozició szerinti listázás
-  $position_id = $_POST['position'];
 
-  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-  . 'FROM personal_data, position, user_data '
-  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND position.id LIKE ' . $position_id . ' '
-  . 'ORDER BY position.priority ASC';
-  } else {
-
-  if (!empty($_POST['date']) && !empty($_POST['time'])) {
-  //Adott időpillanatban dolgozók listája
-  $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
-
-  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-  . 'FROM personal_data, position, user_data, time_table '
-  . 'WHERE user_data.personal_data_id = personal_data.id '
-  . 'AND user_data.position_id = position.id '
-  . 'AND time_table.user_id = user_data.id '
-  . 'AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date '
-  . 'ORDER BY position.priority ASC';
-  } else {
-
-
-  if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
-  $search_first_name = $_POST['searchFirstName'];
-  $search_last_name = $_POST['searchLastName'];
-  //Keressé név alapján
-  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-  . 'FROM personal_data, position, user_data '
-  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
-  . 'AND personal_data.last_name LIKE "%'.$search_last_name.'%" '
-  . 'AND personal_data.first_name LIKE "%'.$search_first_name.'%" '
-  . 'ORDER BY position.priority ASC';
-
-  }else{
-  //Minden dolgozó
-  $sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-  . 'FROM personal_data, position, user_data '
-  . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
-  . 'ORDER BY position.priority ASC';
-  }
-
-  }
-  }
-
- */
-/*
-
-$position_id = '%';
-$date_time_value = '%';
-$search_first_name = '%';
-$search_last_name = '%';
-
-if (!empty($_POST['position'])) {
-    $position_id = $_POST['position'];
-}
-
-if (!empty($_POST['date']) && !empty($_POST['time'])) {
-    $date_time_value = $_POST['date'] . ' ' . $_POST['time'];
-}
-
-if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
-    $search_first_name = $_POST['searchFirstName'];
-    $search_last_name = $_POST['searchLastName'];
-}
-
-$sql = 'SELECT personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
-        . 'FROM personal_data, position, user_data, time_table '
-        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
-        . 'AND position.id LIKE "' . $position_id . '" '
-        . 'AND time_table.user_id = user_data.id '
-        . 'AND "' . $date_time_value . '" BETWEEN time_table.start_date AND time_table.end_date '
-        . 'AND personal_data.last_name LIKE "%' . $search_last_name . '%" '
-        . 'AND personal_data.first_name LIKE "%' . $search_first_name . '%" '
-        . 'ORDER BY position.priority ASC';
-
-
-echo $sql;*/
-
-
+//szűrők beállítása
 $query_position = '';
 $query_date_time = '';
 $query_name = '';
@@ -137,6 +56,8 @@ if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
 }
 
 
+
+//szűrőfeltételek alapján tablóképek és poziciók kirajzolása
 $sql = 'SELECT user_data.id, user_data.user_name, personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
         . $query_FROM
         . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
@@ -145,6 +66,7 @@ $sql = 'SELECT user_data.id, user_data.user_name, personal_data.first_name, pers
         . $query_name
         . 'ORDER BY position.priority ASC';
 
+//jelen pillanatban munkában van e?...
 $sql2 = 'SELECT time_table.start_date, time_table.end_date, TIMEDIFF(time_table.start_date, now()) as "elteres" FROM time_table '
             . 'WHERE time_table.user_id = ? '
             . 'AND ((time_table.start_date <= now() AND time_table.end_date >= now()) '
@@ -190,13 +112,15 @@ while ($row = $res->fetch_assoc()) {
     //Kép és adatok kiíratása
     //New line char: &#xa;
     if(currentlyAtWork($start, $stop)){
-        $info_text = 'Igen';
+        $info_text = 'Igen';        
+        $online = '*';
     }else{
         $info_text = 'Nem&#xa;Következő munkanap:&#xa;'.$start;
+        $online = '';
     }
     //$content .=   '<div class="tabloImageBox" style="background-image:url("./images/' . $row['picture'] . '")">';
     $content .= '<div class="tabloImageBox" style="background-image: url(images/' . $row['picture'] . ')" '
-            . 'data-text="'.$row['first_name'].' '.$row['last_name'].'&#xa;'
+            . 'data-text="'.$row['first_name'].'&nbsp;'.$row['last_name'].$online.'&#xa;'
             . 'Jelenleg munkában van: '
             . $info_text.''
             . '&#xa;Felhasználónév: '.$row['user_name'].''

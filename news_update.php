@@ -34,11 +34,11 @@ if (!empty($_POST['news_id'])) {
         $public = empty($public) ? "" : "checked";
 
         $content = '<div class="container">
-                        <h2 class="mt-3">Hír módosítása:</h2>
+                        
                         <form action="#" method="post">
                         <div class="form-group">
                            <label for="comment"></label>
-                           <input type="text" class="form-control" name="title" placeholder="Cím" value="' . $title . '">
+                           <input type="text" class="form-control" name="title" placeholder="Cím" value="' . $title . '">                          
                            <textarea class="form-control" rows="5" name="comment" placeholder="Főoldalon megjelenő hír hozzáadása!">' . $content . '</textarea>
                          </div>
                            <input type="checkbox" name="public" value="1" ' . $public . '> Megjelenítés a főoldalon
@@ -66,32 +66,10 @@ if (!empty($_POST['news_id'])) {
 
 
 
-/*
-  if (!empty($_POST['comment'])) {
-  $userid = $_SESSION['userid'];
-  $title = $_POST['title'];
-  $comment = $_POST['comment'];
-  $public = empty($_POST['public'])?0:1;
-  $sql = "INSERT INTO news (author, title, content, public) VALUES ('$userid', '$title', '$comment', '$public')";
-
-  if ($con->query($sql) === TRUE) {
-  header('Location: news.php');
-  } else {
-  $_SESSION['loginError'] = "Az új hír hozzáadása sikertelen!";
-  header('Location: news.php');
-  }
-  }
- */
-
-
-
-
-
-
-
 printHTML('html/header.html');
 printMenu();
 echo '<div class="mycontainer">';
+echo '<h1 class="mt-2 mb-3">Hír módosítása</h1>';
 echo $content;
 echo '</div>';
 printHTML('html/footer.html');
