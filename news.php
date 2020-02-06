@@ -8,12 +8,14 @@ if (!isLogged()) {
     die();
 }
 
+//Adatok lekérése
 $sql = 'SELECT personal_data.first_name, personal_data.last_name, news.title, news.content, news.creation_date '
         . 'FROM personal_data, user_data, news '
-        . 'WHERE user_data.personal_data_id = personal_data.id '        
+        . 'WHERE user_data.personal_data_id = personal_data.id '
         . 'AND news.author = user_data.id '
         . 'AND news.public = 1 '
-        . 'ORDER BY news.creation_date DESC';
+        . 'ORDER BY news.creation_date DESC '
+        . 'LIMIT 5';
 
 
 
@@ -24,17 +26,16 @@ if (!$res) {
 
 $content = '';
 while ($row = $res->fetch_assoc()) {
-    
+
     $content .= '<div class="card-deck">'
             . '<div class="card m-2 p-2">'
             . '<h2 class="card-title">' . $row['title'] . '</h2>'
             . '<h6>' . $row['creation_date'] . '</h6>'
-            . '<p>' . $row['content'] . '</p>'            
+            . '<p>' . $row['content'] . '</p>'
             . '<h5 class="text-right">' . $row['first_name'] . ' ' . $row['last_name'] . '</h5>'
             . '</div>'
             . '</div>';
 }
-
 
 
 printHTML('html/header.html');
@@ -48,6 +49,7 @@ if (!empty($_SESSION['loginError'])) {
 
 echo '<div class="mycontainer">';
 echo '<h1 class="mt-2 mb-3">Hírek</h1>';
+
 echo $content;
 echo '</div>';
 printHTML('html/footer.html');
