@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 05. 15:48
--- Kiszolgáló verziója: 10.4.8-MariaDB
--- PHP verzió: 7.1.33
+-- Létrehozás ideje: 2020. Feb 09. 19:22
+-- Kiszolgáló verziója: 10.1.39-MariaDB
+-- PHP verzió: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `news` (
   `author` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` mediumtext NOT NULL,
-  `public` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `public` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `author` (`author`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `news`
@@ -49,10 +49,10 @@ CREATE TABLE IF NOT EXISTS `news` (
 INSERT INTO `news` (`id`, `author`, `title`, `content`, `public`, `creation_date`) VALUES
 (1, 1, '321', 'update', 1, '2020-02-01 11:11:00'),
 (2, 1, 'HTML teszt bejegyzés', '<p>Sziasztok,</p>\r\n<p>Ezzel a bejegyz&eacute;ssel szeretn&eacute;m tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyz&eacute;sben.</p>\r\n<ol>\r\n<li>Ha minden j&oacute;l megy</li>\r\n<li>Ez egy felsorol&aacute;s lesz.</li>\r\n</ol>\r\n<p><strong>Ez a sz&ouml;vegr&eacute;sz ki lesz emelve.</strong></p>\r\n<p style=\"text-align: center;\">&Eacute;s h&aacute;t egy kis k&ouml;z&eacute;pre igaz&iacute;t&eacute;s sem maradhat ki a sorb&oacute;l :)</p>\r\n<p style=\"text-align: left;\">Rem&eacute;lem a sort&ouml;r&eacute;sek is megmaradnak.&nbsp;<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', 0, '2020-02-04 18:01:29'),
-(3, 1, 'Ezt már oldalról töltöttem fel', 'Na majd most \r\nTalánnnn', 0, '2020-02-04 18:53:06'),
+(3, 1, 'Ezt már oldalról töltöttem fel', 'Na majd most \r\nTalánnnn', 1, '2020-02-04 18:53:06'),
 (4, 1, '', 'Ez már a create php -ból kerül feltöltésre\r\nés van jelölő box is hogy kilegyen e rakva a főoldalra\r\namit kiveszek hogy ne legyen kirakva', 0, '2020-02-05 11:34:57'),
 (5, 1, '', 'ez ki fog menni', 1, '2020-02-05 11:35:44'),
-(6, 1, '', 'checkbox jooo csak a Title nem lett bekötve :)', 1, '2020-02-05 11:37:38'),
+(6, 1, 'Most már ennek is van címe', 'checkbox jooo csak a Title nem lett bekötve :)', 1, '2020-02-05 11:37:38'),
 (7, 1, 'dweedfwef', 'wefwefwefwef', 1, '2020-02-05 11:38:59'),
 (8, 1, 'dfgdfgdfg', 'sdfgdsfgdsfg', 0, '2020-02-05 11:45:02'),
 (9, 1, 'vvvvvvvvvv', 'vvvvvvvvvvvvvv', 0, '2020-02-05 11:45:53'),
@@ -65,7 +65,8 @@ INSERT INTO `news` (`id`, `author`, `title`, `content`, `public`, `creation_date
 (16, 1, 'yyyyywwwwww', 'wwwwwwwwwwwwwwwww', 0, '2020-02-05 11:50:12'),
 (17, 1, 'aaaaaa', 'aaaaaaaaaaa', 1, '2020-02-05 11:50:34'),
 (18, 1, 'sdsadasdsa', 'asdasdasd', 0, '2020-02-05 11:50:39'),
-(19, 1, 'qwe', 'asd', 1, '2020-02-05 12:31:38');
+(19, 1, 'qwe', 'asd', 1, '2020-02-05 12:31:38'),
+(20, 1, 'Ez egy uj hír ', 'híír híír híír\r\nsdfsdfsdfsdf', 1, '2020-02-09 16:32:35');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `permission_name` varchar(50) NOT NULL,
   `description` varchar(1000) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `permission`
@@ -88,7 +89,9 @@ CREATE TABLE IF NOT EXISTS `permission` (
 INSERT INTO `permission` (`id`, `permission_name`, `description`) VALUES
 (1, 'Olvasás - Saját adatok', 'Saját adatok megtekintése'),
 (2, 'Olvasás - Saját beosztás', 'Saját beosztás megtekintése'),
-(3, 'Írás - Hírek', 'Kezdőoldalon megjelenő hírek írása és módosítása');
+(3, 'Írás - Hírek', 'Kezdőoldalon megjelenő hírek írása és módosítása'),
+(4, 'Olvasás - Teljes beosztás', 'Összes alkalmazott beosztása'),
+(5, 'Olvasás - Tabló', 'Tabló megjelenítése');
 
 -- --------------------------------------------------------
 
@@ -147,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `position` (
 --
 
 INSERT INTO `position` (`id`, `position_name`, `priority`, `description`, `permission_ids`, `work_schedules`) VALUES
-(1, 'Supervisor', 30, 'Minden ami jó', '1,2,3,9', '10:00:00'),
+(1, 'Supervisor', 30, 'Minden ami jó', '1,2,3,4,5', '10:00:00'),
 (2, 'Járatszedő', 100, 'Járatok összekészítésért felelős', '1,2', '12:00:00'),
 (3, 'Végellenőr', 70, 'Járatok ellenőrzése', '1,2', '12:00:00');
 
@@ -163,12 +166,12 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT 0,
-  `sick_leave` tinyint(1) DEFAULT 0,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `paid_leave` tinyint(1) DEFAULT '0',
+  `sick_leave` tinyint(1) DEFAULT '0',
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `time_table`
@@ -192,7 +195,8 @@ INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave
 (15, 7, '2020-02-10 06:00:00', '2020-02-10 16:00:00', 0, 0, '2020-02-04 11:42:22'),
 (16, 8, '2020-02-04 18:00:00', '2020-02-05 06:00:00', 0, 0, '2020-02-04 11:43:15'),
 (17, 9, '2020-02-13 06:00:00', '2020-02-13 16:00:00', 0, 0, '2020-02-04 11:43:40'),
-(18, 7, '2020-02-04 06:00:00', '2020-02-06 18:00:00', 0, 0, '2020-02-04 13:25:03');
+(18, 7, '2020-02-04 06:00:00', '2020-02-06 18:00:00', 0, 0, '2020-02-04 13:25:03'),
+(19, 1, '2020-02-12 06:00:00', '2020-02-12 16:00:00', 0, 0, '2020-02-09 15:57:07');
 
 -- --------------------------------------------------------
 

@@ -30,19 +30,23 @@ function printMenu() {
         $menuitems = '';
         //Beosztás menüpont megjelenítéséhez 2 -es jogosultság szükséges
         if (isHaveRequiredPermission(2)) {
-            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="own_time_table.php">Beosztás </a></li>';
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="own_time_table.php">Beosztás</a></li>';
         }
         //Saját adatok menüpont megjelenítéséhez 1 -es jogosultság szükséges
         if (isHaveRequiredPermission(1)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="userinfo.php">Saját adatok</a></li>';
         }
         //Tabló menüpont megjelenítéséhez 9 -es jogosultság szükséges
-        if (isHaveRequiredPermission(9)) {
+        if (isHaveRequiredPermission(5)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="tablo.php">Tabló</a></li>';
         }
         //Hírek kezelése menüpont megjelenítéséhez 3 -es jogosultság szükséges
         if (isHaveRequiredPermission(3)) {
             $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="news_controller.php">Hírek kezelése</a></li>';
+        }
+        //Teljes beosztás menüpont megjelenítéséhez 4 -es jogosultság szükséges
+        if (isHaveRequiredPermission(4)) {
+            $menuitems .= '<li class="nav-item"> <a class="nav-link text-light" href="time_table.php">Teljes beosztás</a></li>';
         }
         $menuitems .= '</ul></div>'
                 . '<div class="navbar-collapse">'

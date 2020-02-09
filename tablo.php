@@ -8,7 +8,7 @@ if (!isLogged()) {
     die();
 }
 
-if (!isHaveRequiredPermission(9)) {
+if (!isHaveRequiredPermission(5)) {
     $_SESSION['loginError'] = "Információ megtekintéséhez nincs jogosultsága";
     header('Location: logout.php');
     die();

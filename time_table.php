@@ -8,8 +8,8 @@ if (!isLogged()) {
     die();
 }
 
-//TODO: jogosultságot létrehozni adatbázisban új értékkel!!
-if (!isHaveRequiredPermission(9)) {
+
+if (!isHaveRequiredPermission(4)) {
     $_SESSION['loginError'] = "Információ megtekintéséhez nincs jogosultsága";
     header('Location: logout.php');
     die();
@@ -27,13 +27,10 @@ if (!empty($_POST['year']) && (!empty($_POST['month']))) {
     $year_month = $year . '-' . $month;
 } else {
     $year_month = date('Y-m');
+    $month = date('m');
 }
 
 $last_day = date('d', strtotime(getLastDay($year_month)));
-
-
-echo $last_day;
-
 
 //Legördülő menü adatok
 $years = array();
@@ -70,7 +67,7 @@ $selector .= '</select> <input class="btn btn-success" type="submit" value="Elk�
 
 //Beosztás adatok
 $sql = 'SELECT '
-        . 'user_data.id '
+        . 'user_data.id, '
         . 'personal_data.first_name, '
         . 'personal_data.last_name, '
         . 'position.position_name, '
@@ -95,11 +92,11 @@ if (!$res) {
 $table_head = '<th>Név</th>';
 
 for ($i = 1; $i <= $last_day; $i++) {
-    $table_head .= '<th>' . $i . '</th>';
+    $table_head .= '<th class="text-center">' . $i . '</th>';
 }
 
-$content = '<table class="table">'
-        . '<thead">'
+$content = '<table class="table table-sm table-bordered table-hover">'
+        . '<thead class="thead-light">'
         . '<tr>';
 
 $content .= $table_head . '</tr></thead>';
@@ -110,37 +107,78 @@ $user = '';
 
 while ($row = $res->fetch_assoc()) {
 
+    if ($row['paid_leave'] || $row['sick_leave']) {
+        if ($row['paid_leave']) {
+            $adatok[$row['day_index']] = 'BSZ';
+        } else {
+            $adatok[$row['day_index']] = 'FSZ';
+        }
+    } else {
+        $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
+    }
+
+
     if ($new_user) {
+        //Első futás
+        //user id kimentése
         $new_user = false;
         $user = $row['id'];
-        $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
+        $user_name = $row['first_name'] . ' ' . $row['last_name'];
+        $position = $row['position_name'];
+        $content .= '<tr class="table-warning"><td colspan="' . ((int) $last_day + 1) . '">' . $position . '</td></tr>';
     } else {
-        if ($user == $row['id']) {
-            $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
-        } else {
-            $user = $row['id'];
+        if ($user != $row['id']) {
+            //user váltás volt
+            //eddigi user adatok kiíratása
             $content .= '<tr>';
+            $content .= '<td nowrap>' . $user_name . '</td>';
             for ($i = 1; $i <= $last_day; $i++) {
-                if (!empty($adatok[i])) {
-                    $content .= '<td>'.$adatok[i].'</td>';
-                }else{
-                    $content .= '<td>-</td>';
+                if (!empty($adatok[$i])) {
+                    $content .= '<td nowrap class="text-center">' . $adatok[$i] . '</td>';
+                } else {
+                    $content .= '<td nowrap class="text-center">-</td>';
                 }
             }
             $content .= '</tr>';
+
+            if ($position != $row['position_name']) {
+                $position = $row['position_name'];
+                $content .= '<tr class="table-warning"><td colspan="' . ((int) $last_day + 1) . '">' . $position . '</td></tr>';
+            }
+
+            //uj user adatok mentése
+            $user = $row['id'];
+            $position = $row['position_name'];
+            $user_name = $row['first_name'] . ' ' . $row['last_name'];
+            $adatok = array();
         }
     }
 }
+
+//utoljára kiolvasott adatok kiíratása
+$content .= '<tr>';
+$content .= '<td nowrap>' . $user_name . '</td>';
+for ($i = 1; $i <= $last_day; $i++) {
+    if (!empty($adatok[$i])) {
+        $content .= '<td nowrap class="text-center">' . $adatok[$i] . '</td>';
+    } else {
+        $content .= '<td nowrap class="text-center">-</td>';
+    }
+}
+$content .= '</tr>';
+
+
+
 $content .= '</table>';
 
-var_dump($adatok);
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="container">';
+echo '<div class="mycontainer">';
 echo $selector;
-echo '<p><p>' . $start_date . ' - ' . $stop_date;
+echo '<h1>' . $months_hu[(int) $month] . '</h1>';
 echo $content;
+echo '<p> BSZ - Beteg szabadság / FSZ - Fizetett szabadság</p>';
 echo '</div>';
 printHTML('html/footer.html');
 $con->close();
