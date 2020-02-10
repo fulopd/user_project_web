@@ -86,7 +86,7 @@ function increaseDateDay($date, $day) {
 
 
 function currentlyAtWork($startDate, $endDate){
-    $testedDate = date('Y-m-d G:i');        
+    $testedDate = date('Y-m-d H:i:s');        
     if($startDate < $testedDate && $endDate > $testedDate){
         return true;
     }else{

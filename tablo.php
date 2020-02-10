@@ -117,8 +117,7 @@ while ($row = $res->fetch_assoc()) {
     }else{
         $info_text = 'Nem&#xa;Következő munkanap:&#xa;'.$start;
         $online = '';
-    }
-    //$content .=   '<div class="tabloImageBox" style="background-image:url("./images/' . $row['picture'] . '")">';
+    }    
     $content .= '<div class="tabloImageBox" style="background-image: url(images/' . $row['picture'] . ')" '
             . 'data-text="'.$row['first_name'].'&nbsp;'.$row['last_name'].$online.'&#xa;'
             . 'Jelenleg munkában van: '
