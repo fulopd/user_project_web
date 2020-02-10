@@ -107,7 +107,7 @@ for ($i = 1; $i <= $last_day; $i++) {
 $colgroup .= '</colgroup>';
 $table_head .= '</tr></thead>';
 
-$content = '<table class="table table-sm table-bordered table-hover">'
+$content = '<table id="myTable" class="table table-sm table-bordered table-hover">'
         . $colgroup
         . $table_head;
 

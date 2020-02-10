@@ -47,7 +47,7 @@ if (!empty($_SESSION['loginError'])) {
 }
 
 
-echo '<div class="mycontainer">';
+echo '<div class="container">';
 echo '<h1 class="mt-2 mb-3">Hírek</h1>';
 
 echo $content;
