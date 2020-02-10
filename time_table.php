@@ -107,17 +107,6 @@ $user = '';
 
 while ($row = $res->fetch_assoc()) {
 
-    if ($row['paid_leave'] || $row['sick_leave']) {
-        if ($row['paid_leave']) {
-            $adatok[$row['day_index']] = 'BSZ';
-        } else {
-            $adatok[$row['day_index']] = 'FSZ';
-        }
-    } else {
-        $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
-    }
-
-
     if ($new_user) {
         //Első futás
         //user id kimentése
@@ -130,6 +119,9 @@ while ($row = $res->fetch_assoc()) {
         if ($user != $row['id']) {
             //user váltás volt
             //eddigi user adatok kiíratása
+
+
+
             $content .= '<tr>';
             $content .= '<td nowrap>' . $user_name . '</td>';
             for ($i = 1; $i <= $last_day; $i++) {
@@ -152,6 +144,16 @@ while ($row = $res->fetch_assoc()) {
             $user_name = $row['first_name'] . ' ' . $row['last_name'];
             $adatok = array();
         }
+    }
+    //Cella információ kinyerése
+    if ($row['paid_leave'] || $row['sick_leave']) {
+        if ($row['paid_leave']) {
+            $adatok[$row['day_index']] = 'BSZ';
+        } else {
+            $adatok[$row['day_index']] = 'FSZ';
+        }
+    } else {
+        $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
     }
 }
 
