@@ -89,17 +89,29 @@ if (!$res) {
     die('Hiba a lekérdezés végrehajtásában!');
 }
 
-$table_head = '<th>Név</th>';
+$colgroup = '<colgroup><col/>';
+$table_head = '<thead class="thead-light"><tr><th>Név</th>';
 
-for ($i = 1; $i <= $last_day; $i++) {
+
+for ($i = 1; $i <= $last_day; $i++) {    
+    //Szombat - Vasárnap más színnel
+    $col_date = date("N", strtotime($year_month . '-' . $i));    
+    if ($col_date == "6" || $col_date == "7") {
+        $colgroup .= '<col class="table-info"/>';
+    } else {
+        $colgroup .= '<col/>';
+    }
+    //Fejléc számozás
     $table_head .= '<th class="text-center">' . $i . '</th>';
 }
+$colgroup .= '</colgroup>';
+$table_head .= '</tr></thead>';
 
 $content = '<table class="table table-sm table-bordered table-hover">'
-        . '<thead class="thead-light">'
-        . '<tr>';
+        . $colgroup
+        . $table_head;
 
-$content .= $table_head . '</tr></thead>';
+
 
 $adatok = array();
 $new_user = true;
@@ -119,14 +131,20 @@ while ($row = $res->fetch_assoc()) {
         if ($user != $row['id']) {
             //user váltás volt
             //eddigi user adatok kiíratása
-
-
-
             $content .= '<tr>';
             $content .= '<td nowrap>' . $user_name . '</td>';
+            
             for ($i = 1; $i <= $last_day; $i++) {
                 if (!empty($adatok[$i])) {
-                    $content .= '<td nowrap class="text-center">' . $adatok[$i] . '</td>';
+                    $td_color = '';
+                    if ($adatok[$i] == "BSZ") {
+                        $td_color = 'table-danger';
+                    } else {
+                        if ($adatok[$i] == "FSZ") {
+                            $td_color = 'table-success';
+                        }
+                    }
+                    $content .= '<td nowrap class="text-center ' . $td_color . '">' . $adatok[$i] . '</td>';
                 } else {
                     $content .= '<td nowrap class="text-center">-</td>';
                 }
@@ -167,11 +185,7 @@ for ($i = 1; $i <= $last_day; $i++) {
         $content .= '<td nowrap class="text-center">-</td>';
     }
 }
-$content .= '</tr>';
-
-
-
-$content .= '</table>';
+$content .= '</tr></table>';
 
 
 printHTML('html/header.html');
