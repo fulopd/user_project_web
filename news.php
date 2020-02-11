@@ -27,11 +27,13 @@ if (!$res) {
 $content = '';
 
 while ($row = $res->fetch_assoc()) {
+    //$comment = nl2br($row['content']);
+    $comment = $row['content'];
     $content .= '<div class="card-deck">'
             . '<div class="card m-2 p-2">'
             . '<h2 class="card-title">' . $row['title'] . '</h2>'
             . '<h6>' . $row['creation_date'] . '</h6>'
-            . '<p>' . $row['content'] . '</p>'            
+            . '<p>' . $comment . '</p>'            
             . '<h5 class="text-right">' . $row['first_name'] . ' ' . $row['last_name'] . '</h5>'
             . '</div>'
             . '</div>';
@@ -49,9 +51,9 @@ if (!empty($_SESSION['ok'])) {
 
 
 echo '<div class="container">';
-echo '<h1 class="mt-2 mb-3">Hírek</h1>';
+echo '<h1>Hírek</h1>';
 
-echo nl2br($content);
+echo $content;
 echo '</div>';
 printHTML('html/footer.html');
 $con->close();

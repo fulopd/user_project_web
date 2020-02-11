@@ -19,34 +19,44 @@ body {
   justify-content: center;
 }
 
-.flex-container > div {  
+.flex-container div {  
   margin: 10px;
   padding: 20px;
   
 }
+.container{
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
 
 .mycontainer{
-    width: 98%;
-    margin: auto;
+    width: 90%;
+    margin: auto;    
 }
 
 .tabloRowContaier{
     width: 100%;
     margin: auto;    
     padding: 15px;
-}
-.tablopositiontext{
-    margin-top: 50px;
+    align-items: center;
 }
 
-.tabloImageBox{   
+.tablopositiontext{    
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+
+.tabloImageBox{      
     position: relative;
     width: 250px;
     height: 250px;
-    margin: 20px;
+    margin: 10px auto;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
+    border-radius: 15px;
     transition: 0.5s;
 }
 
@@ -66,13 +76,19 @@ body {
     color: #fff;
     padding: 0 8px;
     content:attr(data-text);
+    
     transition: 0.5s;
+}
+
+.tabloImageBoxWork:after{
+    background-color: rgba(0,128,0,0.9);
 }
 
 .tabloImageBox:hover:after{
     top: 0;
     padding: 8px;    
     background-color: rgba(0,0,0,0.8);
+    border-radius: 15px;
 }
 
 .tabloImageBox:first-line{
@@ -89,6 +105,14 @@ body {
 }
 
 #myTable td {
-    min-width: 40px;
+    min-width: 35px;
+    padding: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 0.8em;
  
+}
+
+#myTable td:first-child{
+    padding-left: 5px;
 }

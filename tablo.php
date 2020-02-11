@@ -112,14 +112,14 @@ while ($row = $res->fetch_assoc()) {
     //Kép és adatok kiíratása
     //New line char: &#xa;
     if(currentlyAtWork($start, $stop)){
-        $info_text = 'Igen';        
-        $online = '*';
+        $info_text = 'Igen';               
+        $tabloImageBoxWork = ' tabloImageBoxWork';
     }else{
-        $info_text = 'Nem&#xa;Következő munkanap:&#xa;'.$start;
-        $online = '';
+        $info_text = 'Nem&#xa;Következő munkanap:&#xa;'.$start;        
+        $tabloImageBoxWork = '';
     }    
-    $content .= '<div class="tabloImageBox" style="background-image: url(images/' . $row['picture'] . ')" '
-            . 'data-text="'.$row['first_name'].'&nbsp;'.$row['last_name'].$online.'&#xa;'
+    $content .= '<div class="tabloImageBox'.$tabloImageBoxWork.'" style="background-image: url(images/' . $row['picture'] . ')" '
+            . 'data-text="'.$row['first_name'].'&nbsp;'.$row['last_name'].'&#xa;'
             . 'Jelenleg munkában van: '
             . $info_text.''
             . '&#xa;Felhasználónév: '.$row['user_name'].''

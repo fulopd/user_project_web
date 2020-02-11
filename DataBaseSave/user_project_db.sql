@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 09. 19:22
--- Kiszolgáló verziója: 10.1.39-MariaDB
--- PHP verzió: 7.3.5
+-- Létrehozás ideje: 2020. Feb 11. 15:35
+-- Kiszolgáló verziója: 10.4.8-MariaDB
+-- PHP verzió: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,37 +36,21 @@ CREATE TABLE IF NOT EXISTS `news` (
   `author` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` mediumtext NOT NULL,
-  `public` tinyint(1) NOT NULL DEFAULT '1',
-  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `public` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `author` (`author`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `news`
 --
 
 INSERT INTO `news` (`id`, `author`, `title`, `content`, `public`, `creation_date`) VALUES
-(1, 1, '321', 'update', 1, '2020-02-01 11:11:00'),
-(2, 1, 'HTML teszt bejegyzés', '<p>Sziasztok,</p>\r\n<p>Ezzel a bejegyz&eacute;ssel szeretn&eacute;m tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyz&eacute;sben.</p>\r\n<ol>\r\n<li>Ha minden j&oacute;l megy</li>\r\n<li>Ez egy felsorol&aacute;s lesz.</li>\r\n</ol>\r\n<p><strong>Ez a sz&ouml;vegr&eacute;sz ki lesz emelve.</strong></p>\r\n<p style=\"text-align: center;\">&Eacute;s h&aacute;t egy kis k&ouml;z&eacute;pre igaz&iacute;t&eacute;s sem maradhat ki a sorb&oacute;l :)</p>\r\n<p style=\"text-align: left;\">Rem&eacute;lem a sort&ouml;r&eacute;sek is megmaradnak.&nbsp;<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', 0, '2020-02-04 18:01:29'),
-(3, 1, 'Ezt már oldalról töltöttem fel', 'Na majd most \r\nTalánnnn', 1, '2020-02-04 18:53:06'),
-(4, 1, '', 'Ez már a create php -ból kerül feltöltésre\r\nés van jelölő box is hogy kilegyen e rakva a főoldalra\r\namit kiveszek hogy ne legyen kirakva', 0, '2020-02-05 11:34:57'),
-(5, 1, '', 'ez ki fog menni', 1, '2020-02-05 11:35:44'),
-(6, 1, 'Most már ennek is van címe', 'checkbox jooo csak a Title nem lett bekötve :)', 1, '2020-02-05 11:37:38'),
-(7, 1, 'dweedfwef', 'wefwefwefwef', 1, '2020-02-05 11:38:59'),
-(8, 1, 'dfgdfgdfg', 'sdfgdsfgdsfg', 0, '2020-02-05 11:45:02'),
-(9, 1, 'vvvvvvvvvv', 'vvvvvvvvvvvvvv', 0, '2020-02-05 11:45:53'),
-(10, 1, 'vvvvvvvvvv', 'vvvvvvvvvvvvvv', 0, '2020-02-05 11:46:40'),
-(11, 1, 'fgdfg', 'dfgdfgdfg', 1, '2020-02-05 11:46:49'),
-(12, 1, 'fgdfg', 'dfgdfgdfg', 1, '2020-02-05 11:49:14'),
-(13, 1, 'sdfsdf', 'dsfsdfsdf', 1, '2020-02-05 11:49:20'),
-(14, 1, '333', '3333', 1, '2020-02-05 11:49:29'),
-(15, 1, 'yyyyyyyyyy', 'yyyyyyyyyyyy', 0, '2020-02-05 11:50:04'),
-(16, 1, 'yyyyywwwwww', 'wwwwwwwwwwwwwwwww', 0, '2020-02-05 11:50:12'),
-(17, 1, 'aaaaaa', 'aaaaaaaaaaa', 1, '2020-02-05 11:50:34'),
-(18, 1, 'sdsadasdsa', 'asdasdasd', 0, '2020-02-05 11:50:39'),
-(19, 1, 'qwe', 'asd', 1, '2020-02-05 12:31:38'),
-(20, 1, 'Ez egy uj hír ', 'híír híír híír\r\nsdfsdfsdfsdf', 1, '2020-02-09 16:32:35');
+(2, 1, 'HTML teszt bejegyzés', '<p>Sziasztok,</p><p>Ezzel a bejegyzéssel szeretném tesztelni, hogy HTML elemek hogyan jelenek meg a bejegyzésben.</p><ol><li>Ha minden jól megy</li><li>Ez egy felsorolás lesz.</li></ol><p><strong>Ez a szövegrész ki lesz emelve.</strong></p>', 1, '2020-02-04 18:01:29'),
+(20, 1, 'Ez egy uj hír ', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In laoreet eu neque non ullamcorper. Pellentesque cursus et eros euismod dapibus. Morbi sed elit at velit laoreet gravida finibus et nunc. Fusce et purus eu lectus imperdiet faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut risus viverra, efficitur ligula sed, tristique lectus. Aenean lobortis vulputate vestibulum. Fusce porttitor enim ac velit congue, a porttitor ex dignissim. Pellentesque enim mi, aliquam non tristique eu, cursus vulputate nisi. Duis malesuada justo non dui maximus faucibus. Sed lobortis sit amet ex quis auctor. Nam lacinia egestas justo eget faucibus. Quisque in diam erat. In dui enim, iaculis nec placerat a, ultricies non eros.<br><br>\r\n\r\nInteger purus turpis, ornare semper facilisis et, mollis id dolor. Suspendisse eu massa euismod, laoreet augue ac, lobortis felis. Vestibulum euismod ultrices magna vel elementum. Quisque eu mi et ipsum hendrerit dictum. Pellentesque risus est, dictum ac porta in, blandit ullamcorper quam. Aenean non elit a neque porta iaculis. Curabitur at velit eros. Etiam imperdiet tellus diam, vel lacinia ligula pellentesque at. Donec gravida enim sapien, in tristique sem vulputate faucibus. Suspendisse potenti. Cras eu elit aliquet, dictum felis bibendum, vulputate augue.<br><br>\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem odio, maximus a fermentum eget, venenatis nec diam. Vestibulum ullamcorper elit ac tempus scelerisque. In tristique ultricies est. Sed nec pellentesque risus, id vestibulum ex. Phasellus a ligula vel justo semper gravida eu nec odio. Curabitur malesuada consequat ipsum, sed ultrices ipsum aliquam nec. In sed gravida velit. Vestibulum auctor nisl sit amet ante posuere, ut feugiat mauris efficitur. Nam lectus turpis, tempor ut lectus eu, sagittis euismod metus. Ut rhoncus tincidunt laoreet. Aenean sit amet condimentum nunc, vehicula elementum sapien. Suspendisse lacinia tristique tortor sit amet tincidunt. Suspendisse egestas, diam sed dictum accumsan, quam felis laoreet nisi, et vehicula sapien nunc porta nisl. Etiam vestibulum lobortis quam. Vestibulum convallis velit sed ipsum tempus dictum non sed nulla.', 1, '2020-02-09 16:32:35'),
+(21, 1, 'HTML teszt bejegyzés 2', '<p>Ez még egy <span style=\"color: #00ff00;\">HTML </span>elemeket tartalmazó hozzászólás lesz.</p><p style=\"text-align: center;\">Előző hozzászólást engedte hozzáadni de valamiért szerkesztésnél elhalt a dolog.</p><p style=\"text-align: left;\">Jó lenne rájönni mi lehetett az oka...<img src=\"https://html-online.com/editor/tinymce4_6_5/plugins/emoticons/img/smiley-cool.gif\" alt=\"cool\" /></p>', 1, '2020-02-11 06:48:12'),
+(24, 1, 'Lorem Ipsum', 'In eu nibh enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla commodo nunc eget viverra blandit. In lacus ligula, fringilla sodales efficitur vel, consequat ut sapien. Donec consequat purus orci, a auctor felis pharetra a. Donec et lorem tellus. Morbi quis ante ac massa tincidunt pretium. Sed feugiat purus pellentesque nulla suscipit tincidunt.\r\n\r\nPraesent egestas sem et urna varius, eget consectetur elit varius. Nullam a ligula nisl. Vestibulum ac iaculis sem. Etiam tempor consectetur metus sed fermentum. Vivamus ultricies pretium urna, a efficitur ipsum tincidunt at. In vitae velit consequat, tempor turpis rhoncus, luctus libero. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Cras vestibulum nisi placerat, congue felis tincidunt, imperdiet quam. Aenean luctus ex vel justo lacinia, ut accumsan enim viverra.\r\n', 1, '2020-02-11 07:26:54');
 
 -- --------------------------------------------------------
 
@@ -166,12 +150,12 @@ CREATE TABLE IF NOT EXISTS `time_table` (
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
   `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT '0',
-  `sick_leave` tinyint(1) DEFAULT '0',
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paid_leave` tinyint(1) DEFAULT 0,
+  `sick_leave` tinyint(1) DEFAULT 0,
+  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- A tábla adatainak kiíratása `time_table`
@@ -196,7 +180,8 @@ INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave
 (16, 8, '2020-02-04 18:00:00', '2020-02-05 06:00:00', 0, 0, '2020-02-04 11:43:15'),
 (17, 9, '2020-02-13 06:00:00', '2020-02-13 16:00:00', 0, 0, '2020-02-04 11:43:40'),
 (18, 7, '2020-02-04 06:00:00', '2020-02-06 18:00:00', 0, 0, '2020-02-04 13:25:03'),
-(19, 1, '2020-02-12 06:00:00', '2020-02-12 16:00:00', 0, 0, '2020-02-09 15:57:07');
+(19, 1, '2020-02-12 06:00:00', '2020-02-12 16:00:00', 0, 0, '2020-02-09 15:57:07'),
+(20, 3, '2020-02-11 06:00:00', '2020-02-11 16:00:00', 0, 0, '2020-02-11 09:06:10');
 
 -- --------------------------------------------------------
 

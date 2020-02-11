@@ -45,7 +45,7 @@ $content .='</div>';
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="container"><p>';
+echo '<div class="container">';
 echo $content;
 isHaveRequiredPermission(2);
 echo '</div">';

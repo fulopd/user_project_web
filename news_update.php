@@ -53,13 +53,11 @@ if (!empty($_POST['news_id'])) {
     }
 } else {   
     $public = empty($_POST['public']) ? 0 : 1;
-    $creation_date = str_replace('T', ' ', $_POST['creatian_date']);
-    //$content = htmlentities($_POST['comment']);
+    $creation_date = str_replace('T', ' ', $_POST['creatian_date']);    
     $title = $_POST['title'];
     $content = $_POST['comment'];
     $id = $_SESSION['news_id'];
-    
-    //$sql = 'UPDATE news SET title="' . $_POST['title'] . '", content="' . $content . '", public=' . $public . ', creation_date="'.$creation_date.'" WHERE id=' . $_SESSION['news_id'];
+        
     $sql = "UPDATE news SET title='$title', content='$content', public='$public', creation_date='$creation_date' WHERE id='$id'";
 
     if ($con->query($sql) === TRUE) {
