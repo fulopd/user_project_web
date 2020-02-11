@@ -27,7 +27,7 @@ if (!empty($_POST['comment'])) {
     if ($con->query($sql) === TRUE) {        
         header('Location: news.php');
     } else {
-        $_SESSION['loginError'] = "Az új hír hozzáadása sikertelen!";
+        $_SESSION['ok'] = "Az új hír hozzáadása sikertelen!";
         header('Location: news.php');
     }
 }

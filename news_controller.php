@@ -38,8 +38,10 @@ $content = '<table class="table table-bordered table-hover">'
 
 while ($row = $res->fetch_assoc()) {
     $comment = substr($row['content'], 0, 100);
-    $comment = str_replace('<', '&lt;', $comment);
-    $comment = str_replace('>', '&gt;', $comment);
+    //$comment = str_replace('<', '&lt;', $comment);
+    //$comment = str_replace('>', '&gt;', $comment);
+    $comment = strip_tags($comment);
+    
     $public = $row['public']?'checked':'';
     $content .= '<tr>'
             . '<td class="text-center"><input type="checkbox" name="" value="" '.$public.' disabled></td>'
@@ -63,6 +65,16 @@ $content .= '</table>';
 
 printHTML('html/header.html');
 printMenu();
+
+if (!empty($_SESSION['newsError'])) {
+    echo '<h3 class="text-center text-danger">' . $_SESSION['newsError'] . '</h3>';
+    unset($_SESSION['newsError']);
+}
+if (!empty($_SESSION['ok'])) {
+    echo '<h3 class="text-center text-success">' . $_SESSION['ok'] . '</h3>';
+    unset($_SESSION['ok']);
+}
+
 echo '<div class="mycontainer">';
 echo '<h1 class="mt-2 mb-3">Hírek kezelése</h1>';
 echo $content;
