@@ -20,7 +20,7 @@ $res = $con->query($sql);
 
 $selector = '<div class="input-group mb-3">
                 <div class="input-group-prepend">                
-                    <span class="input-group-text">Szűrés pozíció alapján:&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                    <label class="input-group-text">Szűrés pozíció alapján:</label>
                 </div>
                 <select class="form-control" name="position">
                 <option value="">Minden</option>';
@@ -29,7 +29,8 @@ while ($row = $res->fetch_assoc()) {
     $position_name = $row['position_name'];
     $selector .= '<option value="' . $row['id'] . '">' . $row['position_name'] . '</option>';
 }
-$selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>';
+$selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>'
+        . '<div class="d-flex"><button class="btn btn-outline-secondary m-2">Szűrő</button></div>';
 
 
 //szűrők beállítása
@@ -96,7 +97,7 @@ while ($row = $res->fetch_assoc()) {
     
     if ($new_pos) {
         //Első pozíció kiíratása
-        $content .= '<div class="tablopositiontext"><h1>' . $row['position_name'] . '</h1></div>';
+        $content .= '<div class="tablopositiontext"><h2>' . $row['position_name'] . '</h2></div>';
         $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
         $new_pos = false;
         $new_pos_name = $row['position_name'];
@@ -104,7 +105,7 @@ while ($row = $res->fetch_assoc()) {
         //Elsőtől eltérő pozíció kiíratása
         if ($new_pos_name != $row['position_name']) {
             $content .= '</div></div>';
-            $content .= '<div class="tablopositiontext"><h1>' . $row['position_name'] . '</h1></div>';
+            $content .= '<div class="tablopositiontext"><h2>' . $row['position_name'] . '</h2></div>';
             $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
             $new_pos_name = $row['position_name'];
         }

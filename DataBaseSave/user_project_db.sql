@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 11. 15:35
+-- Létrehozás ideje: 2020. Feb 12. 15:45
 -- Kiszolgáló verziója: 10.4.8-MariaDB
 -- PHP verzió: 7.1.33
 
@@ -110,7 +110,7 @@ INSERT INTO `personal_data` (`id`, `first_name`, `last_name`, `mother`, `birth_d
 (6, 'Fele', 'Botond', 'Kiss Éva', '1965-01-01', 'Szeged', 'kevebocs@gmail.com', '+36547884115', '6.jpg'),
 (7, 'Katyusa', 'Annamária', 'Ismeretlen', '1977-02-05', 'Röszke', 'annus44@gmail.com', '+36504115887', 'profile.jpg'),
 (8, 'Bubi', 'Gerda', 'Puti Ibolya', '1978-05-05', 'Szeged', 'gerda@gmail.com', '+36506552118', 'profile.jpg'),
-(9, 'Tollas', 'Benedek', 'Szegfű Annamária', '2020-02-02', 'szeged', 'Benedek@gmail.com', '+36204117884', '8.png');
+(9, 'Tollas - Karamellás', 'Benedek Elek', 'Szegfű Annamária', '2020-02-02', 'szeged', 'Benedek@gmail.com', '+36204117884', '8.png');
 
 -- --------------------------------------------------------
 

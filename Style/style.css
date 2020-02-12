@@ -16,7 +16,6 @@ body {
 
 .flex-container {
   display: flex;   
-  justify-content: center;
 }
 
 .flex-container div {  
@@ -24,35 +23,59 @@ body {
   padding: 20px;
   
 }
-.container{
-    margin-top: 20px;
-    margin-bottom: 50px;
+
+.input-group-prepend{
+    width: 20%;
+}
+.input-group-prepend label {
+  width: 100%;
+  overflow: hidden;
 }
 
 .mycontainer{
     width: 90%;
-    margin: auto;    
+    margin: auto;        
 }
 
-.tabloRowContaier{
-    width: 100%;
-    margin: auto;    
-    padding: 15px;
-    align-items: center;
+.container{
+    margin-top: 20px;
+}
+
+.d-flex{
+    justify-content: center;
+}
+
+.mycontainer .container{
+    display: none;
+}
+
+.mycontainer button{
+   letter-spacing: 0.9em;
+   text-align: center;
+   text-indent: 0.9em;   
+   text-transform: uppercase;
+}
+
+.tabloRowContaier{   
+    margin: auto;
+    padding: 15px;       
 }
 
 .tablopositiontext{    
     background-color: whitesmoke;
     padding: 5px;
     border-radius: 15px;
+    padding-left: 40px;    
+    border-bottom: 2px solid #ccc;
+    
 }
 
 
 .tabloImageBox{      
     position: relative;
     width: 250px;
-    height: 250px;
-    margin: 10px auto;
+    height: 250px;    
+    margin: 10px;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -75,8 +98,7 @@ body {
     background-color: rgba(0,0,0,0.9);
     color: #fff;
     padding: 0 8px;
-    content:attr(data-text);
-    
+    content:attr(data-text);    
     transition: 0.5s;
 }
 
