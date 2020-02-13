@@ -10,7 +10,7 @@ if (!empty($_POST['username']) && (!empty($_POST['password']))){
     if(!empty($_SESSION['userid'])){
         $_SESSION['loginError'] = "Már be vagy jelentkezve!";   
         session_destroy();        
-        header('Location: index.php');
+        header('Location: login.php');
     }else{
         $username = $_POST['username'];
         $pwd = $_POST['password'];
@@ -40,7 +40,7 @@ if (!empty($_POST['username']) && (!empty($_POST['password']))){
             $_SESSION['position_name'] = $position_name;
 
 
-            header('Location: index.php');
+            header('Location: news.php');
         
         }
         else {
@@ -58,5 +58,7 @@ if(!empty($_SESSION['loginError'])){
 }
 
 printHTML('html/login_form.html');
+
+
 printHTML('html/footer.html');
 $con -> close();

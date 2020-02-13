@@ -8,17 +8,9 @@ if (isLogged()) {
     //bejelentkezve
    header('Location: news.php');
 } else {
-    //kijelentkezve
-    echo '<div class="container"><p>';
-    printHTML('html/welcome.html');
+    //kijelentkezve    
+    header('Location: login.php');
 }
 
-if (!empty($_SESSION['loginError'])) {
-    echo '<h3 class="text-center text-danger">' . $_SESSION['loginError'] . '</h3>';
-    unset($_SESSION['loginError']);
-}
-
-
-echo '</div>';
 printHTML('html/footer.html');
 $con->close();

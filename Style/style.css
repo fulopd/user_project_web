@@ -1,13 +1,15 @@
 body {
+    margin: 0;
+    padding: 0;
     background-color: rgb(230,230,230);
 }
 
 .center-mind {
-  position: absolute;
-  left: 50%;
-  top: 50%;  
-  transform: translate(-50%, -50%); 
-  min-width: 180px;
+    position: absolute;
+    left: 50%;
+    top: 50%;  
+    transform: translate(-50%, -50%); 
+    min-width: 180px;
 }
 
 .table{
@@ -15,21 +17,21 @@ body {
 }
 
 .flex-container {
-  display: flex;   
+    display: flex;   
 }
 
 .flex-container div {  
-  margin: 10px;
-  padding: 20px;
-  
+    margin: 10px;
+    padding: 20px;
+
 }
 
 .input-group-prepend{
     width: 20%;
 }
 .input-group-prepend label {
-  width: 100%;
-  overflow: hidden;
+    width: 100%;
+    overflow: hidden;
 }
 
 .mycontainer{
@@ -50,10 +52,10 @@ body {
 }
 
 .mycontainer button{
-   letter-spacing: 0.9em;
-   text-align: center;
-   text-indent: 0.9em;   
-   text-transform: uppercase;
+    letter-spacing: 0.9em;
+    text-align: center;
+    text-indent: 0.9em;   
+    text-transform: uppercase;
 }
 
 .tabloRowContaier{   
@@ -67,7 +69,7 @@ body {
     border-radius: 15px;
     padding-left: 40px;    
     border-bottom: 2px solid #ccc;
-    
+
 }
 
 
@@ -132,9 +134,72 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
     font-size: 0.8em;
- 
+
 }
 
 #myTable td:first-child{
     padding-left: 5px;
+}
+
+
+.loginContainer{
+    height: 100vh; /* For 100% screen height */
+    width:  100vw; /* For 100% screen width */
+    background: url(../images/login-background.jpg);
+    background-size: cover;
+    background-position: center;   
+    font-family: sans-serif;
+}
+
+.login-box{
+    width: 320px;
+    height: 420px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 50px 30px;    
+}
+
+.loginContainer h1{
+    margin: 0;
+    padding: 0 0 40px;
+    font-size: 26px;
+    text-align: center;
+}
+
+.loginContainer p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;    
+}
+
+.login-box input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.login-box input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: rgba(255,255,255,0.1);
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;   
+}
+
+
+.login-box input[type="submit"]{
+    margin-top: 45px;
+    border: none;
+    outline: none;
+    height: 40px;    
+    background: #1c8adb;
+    color: #fff;
+    font-size: 18px;    
 }
