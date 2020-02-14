@@ -52,7 +52,12 @@ while ($row = $res->fetch_assoc()) {
 sort($years);
 sort($months);
 
-$selector = '<p><form class="form-inline" action="#" method="post">
+$selector = '
+    <form action="#" method="post">
+    <div class="input-group mb-3">
+            <div class="input-group-prepend">                
+                <label for="searchFirstName" class="input-group-text">Év, hónap alapján</label>
+            </div>
     <select class="form-control" name="year">
     <option value="0">Év</option>';
 foreach ($years as $value) {
@@ -64,7 +69,7 @@ $selector .= '</select>
 foreach ($months as $value) {
     $selector .= '<option value="' . $value . '">' . $value . '</option>';
 };
-$selector .= '</select> <input class="btn btn-success" type="submit" value="Elküld"></form>';
+$selector .= '</select> <input class="btn btn-success" type="submit" value="Elküld"></div></form></div>';
 
 
 //Beosztás adatok
@@ -124,7 +129,7 @@ printMenu();
 echo '<div class="container">';
 printHTML('html/own_time_table_form.html');
 echo $selector;
-echo '<p><p>' . $start_date . ' - ' . $stop_date;
+echo '<span>Megjelenített időszak: ' . $start_date . ' - ' . $stop_date.'</span>';
 echo $content;
 echo '</div>';
 printHTML('html/footer.html');

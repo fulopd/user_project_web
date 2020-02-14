@@ -31,8 +31,8 @@ while ($row = $res->fetch_assoc()) {
     $comment = $row['content'];
     $content .= '<div class="card-deck">'
             . '<div class="card m-2 p-2">'
-            . '<h2 class="card-title">' . $row['title'] . '</h2>'
-            . '<h6>' . $row['creation_date'] . '</h6>'
+            . '<span class="newsTitle">' . $row['title'] .'</span>'
+            . '<span class="newsDate">'. $row['creation_date'] . '</span>'
             . '<p>' . $comment . '</p>'            
             . '<h5 class="text-right">' . $row['first_name'] . ' ' . $row['last_name'] . '</h5>'
             . '</div>'

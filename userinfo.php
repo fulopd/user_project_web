@@ -21,31 +21,31 @@ if (!$res){
 
 }
 
-$content = '<div class="card-deck">';
+$content = '';
 while ($row = $res -> fetch_assoc()){        
-    $content .= '<div class="card">'
-            . '<img class="w-25 card-image-top " src="Images/'.$row['picture'].'">'
-            . '<div class="card-body">'
-            . '<h2 class="card-title">'.$row['first_name'].' '.$row['last_name'].'</h2>'
-            . '<table class="table">'
-            . '<tr><td>Anyja neve:</td><td>'.$row['mother'].'</td></tr>'
-            . '<tr><td>Születési dátum:</td><td>'.$row['birth_date'].'</td></tr>'
-            . '<tr><td>Település:</td><td>'.$row['location'].'</td></tr>'
-            . '<tr><td>E-mail:</td><td>'.$row['email'].'</td></tr>'
-            . '<tr><td>Telefonszám:</td><td>'.$row['phone'].'</td></tr>'
-            . '<tr><td>Felhasználónév:</td><td>'.$_SESSION['username'].'</td></tr>'
-            . '<tr><td>Munkakör:</td><td>'.$_SESSION['position_name'].'</td></tr>'
-            . '<tr><td>Munkaviszony kezdete:</td><td>'.$_SESSION['first_working_day'].'</td></tr>'
-            . '</table>'            
-            . '</div>'                           
+    $content .= '<div class="userinfo-box">'
+                . '<img class="avatar" src="Images/'.$row['picture'].'">' 
+                
+                . '<h2>'.$row['first_name'].' '.$row['last_name'].'</h2>'
+
+                . '<table class="table">'
+                . '<tr><td>Anyja neve:</td><td>'.$row['mother'].'</td></tr>'
+                . '<tr><td>Születési dátum:</td><td>'.$row['birth_date'].'</td></tr>'
+                . '<tr><td>Település:</td><td>'.$row['location'].'</td></tr>'
+                . '<tr><td>E-mail:</td><td>'.$row['email'].'</td></tr>'
+                . '<tr><td>Telefonszám:</td><td>'.$row['phone'].'</td></tr>'
+                . '<tr><td>Felhasználónév:</td><td>'.$_SESSION['username'].'</td></tr>'
+                . '<tr><td>Munkakör:</td><td>'.$_SESSION['position_name'].'</td></tr>'
+                . '<tr><td>Munkaviszony kezdete:</td><td>'.$_SESSION['first_working_day'].'</td></tr>'
+                . '</table>'
             . '</div>';
 }
-$content .='</div>';
+
     
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="container">';
+echo '<div class="mycontainer">';
 echo $content;
 isHaveRequiredPermission(2);
 echo '</div">';

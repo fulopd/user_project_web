@@ -30,7 +30,7 @@ while ($row = $res->fetch_assoc()) {
     $selector .= '<option value="' . $row['id'] . '">' . $row['position_name'] . '</option>';
 }
 $selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>'
-        . '<div class="d-flex"><button class="btn btn-outline-secondary m-2">Szűrő</button></div>';
+        . '<div class="d-flex"><button class="btn btn-success">szűrő</button></div>';
 
 
 //szűrők beállítása
@@ -98,7 +98,7 @@ while ($row = $res->fetch_assoc()) {
     if ($new_pos) {
         //Első pozíció kiíratása
         $content .= '<div class="tablopositiontext"><h2>' . $row['position_name'] . '</h2></div>';
-        $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
+        $content .= '<div class="tabloRowContaier bgColor"><div class="d-flex flex-wrap">';
         $new_pos = false;
         $new_pos_name = $row['position_name'];
     } else {
@@ -106,7 +106,7 @@ while ($row = $res->fetch_assoc()) {
         if ($new_pos_name != $row['position_name']) {
             $content .= '</div></div>';
             $content .= '<div class="tablopositiontext"><h2>' . $row['position_name'] . '</h2></div>';
-            $content .= '<div class="tabloRowContaier"><div class="d-flex flex-wrap">';
+            $content .= '<div class="tabloRowContaier bgColor"><div class="d-flex flex-wrap">';
             $new_pos_name = $row['position_name'];
         }
     }
@@ -134,7 +134,7 @@ while ($row = $res->fetch_assoc()) {
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="mycontainer">';
+echo '<div class="container">';
 printHTML('html/tablo.html');
 echo $selector;
 echo $content;

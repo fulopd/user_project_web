@@ -1,29 +1,15 @@
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;    
+    font-family: sans-serif;   
     background-color: rgb(230,230,230);
-}
-
-.center-mind {
-    position: absolute;
-    left: 50%;
-    top: 50%;  
-    transform: translate(-50%, -50%); 
-    min-width: 180px;
+    /*background: url(../images/leaves-108969_1920.jpg) no-repeat center center fixed;       
+    background-size: cover;     */
 }
 
 .table{
     background-color: ghostwhite;
-}
-
-.flex-container {
-    display: flex;   
-}
-
-.flex-container div {  
-    margin: 10px;
-    padding: 20px;
-
 }
 
 .input-group-prepend{
@@ -34,49 +20,62 @@ body {
     overflow: hidden;
 }
 
+.form-box{
+    width: 80%;
+    margin: auto;  
+    margin-bottom: 40px;
+}
+
 .mycontainer{
+    padding: 20px;    
     width: 90%;
-    margin: auto;        
+    margin: auto;     
 }
 
 .container{
-    margin-top: 20px;
+    margin-top: 20px;   
 }
 
 .d-flex{
     justify-content: center;
 }
 
-.mycontainer .container{
+#filter-box{
     display: none;
 }
 
-.mycontainer button{
+#filter-box button{
     letter-spacing: 0.9em;
     text-align: center;
     text-indent: 0.9em;   
     text-transform: uppercase;
 }
 
+/*TABLO*/
 .tabloRowContaier{   
+    background-color: rgba(0,0,0,0.1);
     margin: auto;
-    padding: 15px;       
+    padding: 15px;     
+
 }
 
 .tablopositiontext{    
-    background-color: whitesmoke;
-    padding: 5px;
-    border-radius: 15px;
-    padding-left: 40px;    
-    border-bottom: 2px solid #ccc;
-
+    color: rgb(53,58,65);
+    background: ghostwhite;    
+    padding-left: 40px;           
+    margin-top: 20px;    
+    border-radius: 20px 20px 0 0px;    
 }
 
+.tablopositiontext h2{    
+   margin: 0;
+   padding: 0;
+}
 
 .tabloImageBox{      
     position: relative;
-    width: 250px;
-    height: 250px;    
+    width: 230px;
+    height: 230px;    
     margin: 10px;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -84,50 +83,41 @@ body {
     border-radius: 15px;
     transition: 0.5s;
 }
-
 .tabloImageBox:hover{   
     background-size: 110%;    
 }
-
 .tabloImageBox:after{  
     position: absolute;
-    top: 85%;
+    top: 87%;
     bottom: 0;
     left: 0;
     right: 0;
     white-space: pre-wrap;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(53,58,65,0.9);
     color: #fff;
     padding: 0 8px;
     content:attr(data-text);    
     transition: 0.5s;
 }
-
 .tabloImageBoxWork:after{
     background-color: rgba(0,128,0,0.9);
 }
-
 .tabloImageBox:hover:after{
     top: 0;
     padding: 8px;    
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(53,58,65,0.9);
     border-radius: 15px;
 }
-
 .tabloImageBox:first-line{
     color: #fff;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
-.tabloImageBoxActive{
-    -webkit-box-shadow: 0px 0px 41px 0px rgba(64,255,0,0.81);
-    -moz-box-shadow: 0px 0px 41px 0px rgba(64,255,0,0.81);
-    box-shadow: 0px 0px 41px 0px rgba(64,255,0,0.81);
-    margin: 20px;    
-}
 
+
+/*TELJES BEOSZTÁS*/
 #myTable td {
     min-width: 35px;
     padding: 0;
@@ -142,13 +132,26 @@ body {
 }
 
 
+
+
+/*NEWS*/
+.newsTitle{
+    border-bottom: 1px solid #ccc;
+    font-size: 2em;
+}
+
+.newsDate{
+    font-size: 0.7em;
+    margin-bottom: 20px;
+}
+
+
+/*LOGIN*/
 .loginContainer{
-    height: 100vh; /* For 100% screen height */
-    width:  100vw; /* For 100% screen width */
-    background: url(../images/login-background.jpg);
-    background-size: cover;
-    background-position: center;   
-    font-family: sans-serif;
+    background: url(../images/login-background.jpg) no-repeat center center fixed;       
+    background-size: cover;       
+    height: 100vh;
+    width: 100vw;
 }
 
 .login-box{
@@ -182,7 +185,6 @@ body {
     margin-bottom: 20px;
 }
 
-
 .login-box input[type="text"], input[type="password"]{
     border: none;
     border-bottom: 1px solid #fff;
@@ -193,7 +195,6 @@ body {
     font-size: 16px;   
 }
 
-
 .login-box input[type="submit"]{
     margin-top: 45px;
     border: none;
@@ -202,4 +203,36 @@ body {
     background: #1c8adb;
     color: #fff;
     font-size: 18px;    
+}
+
+
+/*User-Info*/
+.userinfo-box{    
+    min-width: fit-content;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+    background: ghostwhite;  
+    margin: 100px 0 auto;   
+    padding: 50px 0 0;    
+}
+.avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: -100px;
+    left: calc(50% - 100px);
+}
+.userinfo-box h2{
+    margin: 0;
+    padding: 50px 0 30px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.userinfo-box table tr > td:nth-of-type(1) {
+    font-weight: bold;
+    text-align: right;
 }

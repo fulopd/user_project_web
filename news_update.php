@@ -15,9 +15,10 @@ if (!isHaveRequiredPermission(3)) {
 }
 
 $content = '';
-
+echo $_POST['news_id'];
 
 if (!empty($_POST['news_id'])) {
+    
     $news_id = $_POST['news_id'];
     $_SESSION['news_id'] = $news_id;
     $sql = "SELECT * FROM news WHERE news.id = ?";
@@ -28,24 +29,21 @@ if (!empty($_POST['news_id'])) {
     $stmt->store_result();
 
     if ($stmt->num_rows == 1) {
-
-        $stmt->bind_result($id, $author, $title, $content, $public, $creation_date);
+echo $_POST['news_id'];
+        $stmt->bind_result($id, $author, $title, $comment, $public, $creation_date);
         $stmt->fetch();
         $public = empty($public) ? "" : "checked";
 
-        $content = '<div class="container">
-                        
-                        <form action="#" method="post">
+        $content = '<form action="#" method="post">
                         <div class="form-group">
                            <label for="comment"></label>
                            <input type="text" class="form-control" name="title" placeholder="Cím" value="' . $title . '">                          
-                           <textarea class="form-control" rows="5" name="comment" placeholder="Főoldalon megjelenő hír hozzáadása!">' . $content . '</textarea>
+                           <textarea class="form-control" rows="5" name="comment" placeholder="Főoldalon megjelenő hír hozzáadása!">' . $comment . '</textarea>
                          </div>
                            <input type="checkbox" name="public" value="1" ' . $public . '> Megjelenítés a főoldalon
                            <input type="datetime-local" name="creatian_date" value="' . str_replace(' ', 'T', $creation_date) . '">
                            <input class="btn btn-success" type="submit" value="Elküld">
-                       </form>
-                   </div>';
+                       </form>';
     } else {
         //sikertelen a belépés
         $_SESSION['loginError'] = "Adatbázis hiba!";
@@ -55,10 +53,10 @@ if (!empty($_POST['news_id'])) {
     $public = empty($_POST['public']) ? 0 : 1;
     $creation_date = str_replace('T', ' ', $_POST['creatian_date']);    
     $title = $_POST['title'];
-    $content = $_POST['comment'];
+    $comment = $_POST['comment'];
     $id = $_SESSION['news_id'];
         
-    $sql = "UPDATE news SET title='$title', content='$content', public='$public', creation_date='$creation_date' WHERE id='$id'";
+    $sql = "UPDATE news SET title='$title', content='$comment', public='$public', creation_date='$creation_date' WHERE id='$id'";
 
     if ($con->query($sql) === TRUE) {
         $_SESSION['ok'] = "Módosítás megtörtént!";
@@ -75,7 +73,7 @@ if (!empty($_POST['news_id'])) {
 
 printHTML('html/header.html');
 printMenu();
-echo '<div class="mycontainer">';
+echo '<div class="container">';
 echo '<h1 class="mt-2 mb-3">Hír módosítása</h1>';
 echo $content;
 echo '</div>';
