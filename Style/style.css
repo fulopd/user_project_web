@@ -90,6 +90,9 @@ input[type=submit] {
     cursor:pointer;    
     margin-left: 20px;    
 }
+table input[type=submit] {        
+        margin-left: 0;    
+    }
 
 /*TABLO*/
 .tabloRowContaier{   
@@ -279,4 +282,31 @@ input[type=submit] {
 .userinfo-box table tr > td:nth-of-type(1) {
     font-weight: bold;
     text-align: right;
+}
+
+
+/* Kis méret */
+@media screen and (max-width: 35em) {
+    /* styles applied when the page/app is viewed on a screen with a width less than or equal to 35em */
+
+    #filter-box{
+        display: block;               
+    }
+
+    #filter-box input{
+        min-width: 100%;         
+    }
+    .input-group-prepend{
+        min-width: 100%;          
+    }
+    .input-group-prepend label{
+        min-width: 100%;          
+    }
+    .filter-icon{
+        display: none;               
+    }
+    input[type=submit] {
+        padding: 0;           
+        margin-left: 0;    
+    }
 }
