@@ -62,7 +62,7 @@ $selector .= '</select>
 foreach ($months as $value) {
     $selector .= '<option value="' . $value . '">' . $value . '</option>';
 };
-$selector .= '</select> <input class="btn btn-success" type="submit" value="Elküld"></form>';
+$selector .= '</select> <input class="btn btn-success" type="submit" value="Elküld"></form></p>';
 
 
 //Beosztás adatok
@@ -191,8 +191,8 @@ $content .= '</tr></table>';
 printHTML('html/header.html');
 printMenu();
 echo '<div class="mycontainer">';
-echo $selector;
 echo '<h1>' . $months_hu[(int) $month] . '</h1>';
+echo $selector;
 echo $content;
 echo '<p> BSZ - Beteg szabadság / FSZ - Fizetett szabadság</p>';
 echo '</div>';

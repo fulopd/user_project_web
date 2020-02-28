@@ -1,22 +1,34 @@
+@font-face {
+    font-family: myFirstFont;
+    src:url(Amiko-Regular.ttf);
+    /*src:url(ModernAntiqua-Regular.ttf);*/
+}
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;    
-    font-family: sans-serif;   
+    font-family: myFirstFont;
     background-color: rgb(230,230,230);
     /*background: url(../images/leaves-108969_1920.jpg) no-repeat center center fixed;       
     background-size: cover;     */
 }
 
+a:link, a:visited, a:hover, a:active{
+    color: white;
+    text-decoration: none;
+}
 .table{
     background-color: ghostwhite;
 }
 
-.input-group-prepend{
-    width: 20%;
+#filtered-intervall{
+    display: block;
+    padding-left: 10px;
+    margin-top: 20px;
 }
 .input-group-prepend label {
-    width: 100%;
+    width: 200px;
     overflow: hidden;
 }
 
@@ -40,15 +52,43 @@ body {
     justify-content: center;
 }
 
+.filter-icon{
+    position: fixed;
+    bottom: 70px;
+    right: 100px;
+    width: 50px;
+    height: 50px;  
+    background-color: rgba(230,0,22,0.7);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99999;
+}
+.filter-icon:hover{   
+    background-color: rgba(230,0,22,0.9);
+    transition: 0.4s;
+}
+.filter-icon p{    
+    color: white;
+    text-align: center;    
+    line-height: 50px;
+    font-size: 30px;
+    padding: 0;    
+    text-shadow: 2px 2px rgba(30,30,30,0.6);
+}
 #filter-box{
-    display: none;
+    display: none;       
+    background: rgba(12, 12, 12, 0.5);
+    position: relative;    
+    min-width: 1fr;
+    padding: 30px;
+    border-radius: 15px;
 }
 
-#filter-box button{
-    letter-spacing: 0.9em;
-    text-align: center;
-    text-indent: 0.9em;   
-    text-transform: uppercase;
+input[type=submit] {
+    padding:5px 15px;    
+    border: 0 none;
+    cursor:pointer;    
+    margin-left: 20px;    
 }
 
 /*TABLO*/
@@ -68,8 +108,8 @@ body {
 }
 
 .tablopositiontext h2{    
-   margin: 0;
-   padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .tabloImageBox{      
@@ -145,6 +185,10 @@ body {
     margin-bottom: 20px;
 }
 
+.card-deck p{
+    text-align: justify;
+    padding: 0 10px;
+}
 
 /*LOGIN*/
 .loginContainer{
@@ -227,7 +271,7 @@ body {
 }
 .userinfo-box h2{
     margin: 0;
-    padding: 50px 0 30px;
+    padding: 60px 0 20px;
     font-size: 36px;
     text-align: center;
 }

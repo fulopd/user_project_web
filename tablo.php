@@ -29,8 +29,7 @@ while ($row = $res->fetch_assoc()) {
     $position_name = $row['position_name'];
     $selector .= '<option value="' . $row['id'] . '">' . $row['position_name'] . '</option>';
 }
-$selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>'
-        . '<div class="d-flex"><button class="btn btn-success">szűrő</button></div>';
+$selector .= '</select></div><input class="btn btn-success" type="submit" value="Elküld"></form></div>';
 
 
 //szűrők beállítása
@@ -135,6 +134,7 @@ while ($row = $res->fetch_assoc()) {
 printHTML('html/header.html');
 printMenu();
 echo '<div class="container">';
+
 printHTML('html/tablo.html');
 echo $selector;
 echo $content;
