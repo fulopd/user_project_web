@@ -282,6 +282,12 @@ table input[type=submit] {
 .userinfo-box table tr > td:nth-of-type(1) {
     font-weight: bold;
     text-align: right;
+    
+}
+
+.userinfo-box table tr > td {
+    width: 50%
+    
 }
 
 

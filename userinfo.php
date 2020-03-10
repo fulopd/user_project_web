@@ -14,15 +14,16 @@ if (!isHaveRequiredPermission(1)){
 }
 
 $userid = $_SESSION['userid'];
-$sql = "SELECT * FROM personal_data WHERE id = $userid";
+//$sql = "SELECT * FROM personal_data WHERE id = $userid";
+$sql = "SELECT * FROM personal_data WHERE id LIKE (SELECT personal_data_id FROM user_data WHERE id = $userid)";
 $res = $con -> query($sql);
-if (!$res){
-    die('Hiba a lekérdezés végrehajtásában!');
 
+if (!$res){    
+    die('Hiba a lekérdezés végrehajtásában!');
 }
 
 $content = '';
-while ($row = $res -> fetch_assoc()){        
+while ($row = $res -> fetch_assoc()){      
     $content .= '<div class="userinfo-box">'
                 . '<img class="avatar" src="Images/'.$row['picture'].'">' 
                 

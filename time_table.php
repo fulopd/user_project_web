@@ -16,7 +16,7 @@ if (!isHaveRequiredPermission(4)) {
 }
 
 $months_hu = array("", "Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptembe", "Október", "November", "December");
-
+$user_name = '';
 
 //Kezdő dátumok beállítása
 //Megnyitáskor mai dátumhoz viszonyított hónap első és utolsó napja
