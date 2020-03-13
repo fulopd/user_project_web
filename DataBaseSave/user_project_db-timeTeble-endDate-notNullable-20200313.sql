@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2020. Feb 28. 11:38
--- Kiszolgáló verziója: 10.4.8-MariaDB
--- PHP verzió: 7.1.33
+-- Létrehozás ideje: 2020. Már 13. 15:56
+-- Kiszolgáló verziója: 10.1.39-MariaDB
+-- PHP verzió: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,8 +36,8 @@ CREATE TABLE `news` (
   `author` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` mediumtext NOT NULL,
-  `public` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` datetime NOT NULL DEFAULT current_timestamp()
+  `public` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -144,10 +144,10 @@ CREATE TABLE `time_table` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `paid_leave` tinyint(1) DEFAULT 0,
-  `sick_leave` tinyint(1) DEFAULT 0,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp()
+  `end_date` datetime NOT NULL,
+  `paid_leave` tinyint(1) DEFAULT '0',
+  `sick_leave` tinyint(1) DEFAULT '0',
+  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -156,8 +156,8 @@ CREATE TABLE `time_table` (
 
 INSERT INTO `time_table` (`id`, `user_id`, `start_date`, `end_date`, `paid_leave`, `sick_leave`, `update_at`) VALUES
 (1, 1, '2020-01-02 06:00:00', '2020-01-02 16:00:00', 0, 0, '2020-01-30 08:47:06'),
-(2, 1, '2020-01-03 00:00:00', NULL, 1, 0, '2020-01-30 08:47:49'),
-(3, 1, '2020-01-04 00:00:00', NULL, 0, 1, '2020-01-30 08:48:44'),
+(2, 1, '2020-01-03 00:00:00', '2020-01-03 00:00:00', 1, 0, '2020-01-30 08:47:49'),
+(3, 1, '2020-01-04 00:00:00', '2020-01-04 00:00:00', 0, 1, '2020-01-30 08:48:44'),
 (4, 1, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-01-30 11:11:42'),
 (5, 7, '2020-01-20 18:00:00', '2020-01-21 06:00:00', 0, 0, '2020-02-03 12:39:16'),
 (6, 3, '2020-02-02 06:00:00', '2020-02-02 18:00:00', 0, 0, '2020-02-03 12:40:00'),
