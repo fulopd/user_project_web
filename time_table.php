@@ -137,10 +137,10 @@ while ($row = $res->fetch_assoc()) {
             for ($i = 1; $i <= $last_day; $i++) {
                 if (!empty($adatok[$i])) {
                     $td_color = '';
-                    if ($adatok[$i] == "BSZ") {
+                    if ($adatok[$i] == "FSZ") {
                         $td_color = 'table-danger';
                     } else {
-                        if ($adatok[$i] == "FSZ") {
+                        if ($adatok[$i] == "B") {
                             $td_color = 'table-success';
                         }
                     }
@@ -166,7 +166,7 @@ while ($row = $res->fetch_assoc()) {
     //Cella információ kinyerése
     if ($row['paid_leave'] || $row['sick_leave']) {
         if ($row['paid_leave']) {
-            $adatok[$row['day_index']] = 'BSZ';
+            $adatok[$row['day_index']] = 'B';
         } else {
             $adatok[$row['day_index']] = 'FSZ';
         }
