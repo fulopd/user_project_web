@@ -163,11 +163,11 @@ table input[type=submit] {
 
 /*TELJES BEOSZTÁS*/
 #myTable td {
-    min-width: 35px;
+    min-width: 40px;
     padding: 0;
     padding-top: 5px;
     padding-bottom: 5px;
-    font-size: 0.8em;
+    font-size: 0.7em;
 
 }
 

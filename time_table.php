@@ -166,9 +166,9 @@ while ($row = $res->fetch_assoc()) {
     //Cella információ kinyerése
     if ($row['paid_leave'] || $row['sick_leave']) {
         if ($row['paid_leave']) {
-            $adatok[$row['day_index']] = 'B';
-        } else {
             $adatok[$row['day_index']] = 'FSZ';
+        } else {
+            $adatok[$row['day_index']] = 'B';
         }
     } else {
         $adatok[$row['day_index']] = $row['start_hour'] . '-' . $row['end_hour'];
