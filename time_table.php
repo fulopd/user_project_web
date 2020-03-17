@@ -194,7 +194,7 @@ echo '<div class="mycontainer">';
 echo '<h1>' . $months_hu[(int) $month] . '</h1>';
 echo $selector;
 echo $content;
-echo '<p> BSZ - Beteg szabadság / FSZ - Fizetett szabadság</p>';
+echo '<p> B - Beteg szabadság / FSZ - Fizetett szabadság</p>';
 echo '</div>';
 printHTML('html/footer.html');
 $con->close();

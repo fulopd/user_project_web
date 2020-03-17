@@ -60,7 +60,7 @@ if(!empty($_POST['searchFirstName']) || !empty($_POST['searchLastName'])){
 //szűrőfeltételek alapján tablóképek és poziciók kirajzolása
 $sql = 'SELECT user_data.id, user_data.user_name, personal_data.first_name, personal_data.last_name, personal_data.picture, position.position_name, position.priority '
         . $query_FROM
-        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id '
+        . 'WHERE user_data.personal_data_id = personal_data.id AND user_data.position_id = position.id AND (user_data.last_working_day IS NULL OR user_data.last_working_day >= CURDATE())'
         . $query_position
         . $query_date_time
         . $query_name

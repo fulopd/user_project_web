@@ -2,7 +2,6 @@
    
 require_once('config/init.php');
 
- 
 if (!empty($_POST['username']) && (!empty($_POST['password']))){
     if (isset($_SESSION['loginError'])){
         unset($_SESSION['loginError']);
@@ -14,12 +13,13 @@ if (!empty($_POST['username']) && (!empty($_POST['password']))){
     }else{
         $username = $_POST['username'];
         $pwd = $_POST['password'];
-        $sql = "SELECT id, user_name, first_working_day FROM user_data WHERE user_name = ? AND password = ?";
+        
+        $sql = "SELECT id, user_name, first_working_day FROM user_data WHERE user_name = ? AND password = ? AND (last_working_day IS NULL OR last_working_day >= CURDATE())";
+        
         $stmt = $con -> prepare($sql);
         $stmt -> bind_param('ss',$username, $pwd );
         $stmt -> execute();
-        $stmt -> store_result();
-
+        $stmt -> store_result();                
         if ($stmt -> num_rows == 1){
             //belépett
             $stmt -> bind_result($id, $username, $first_working_day);
