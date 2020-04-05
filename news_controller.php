@@ -76,7 +76,7 @@ if (!empty($_SESSION['ok'])) {
 }
 
 echo '<div class="mycontainer">';
-echo '<h1 class="mt-2 mb-3">Hírek kezelése</h1>';
+echo '<h1 class="mt-2 mb-3">Hírek kezelése</h1><a href="news_create.php"><p class="btn btn-success">Új hír</p></a>';
 echo $content;
 
 echo '</div>';

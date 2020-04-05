@@ -15,7 +15,6 @@ if (!isHaveRequiredPermission(3)) {
 }
 
 $content = '';
-echo $_POST['news_id'];
 
 if (!empty($_POST['news_id'])) {
     
@@ -29,7 +28,6 @@ if (!empty($_POST['news_id'])) {
     $stmt->store_result();
 
     if ($stmt->num_rows == 1) {
-echo $_POST['news_id'];
         $stmt->bind_result($id, $author, $title, $comment, $public, $creation_date);
         $stmt->fetch();
         $public = empty($public) ? "" : "checked";
@@ -65,7 +63,7 @@ echo $_POST['news_id'];
         $_SESSION['newsError'] = "Hír módosítása sikertelen: ". $con->error;
         echo "Error updating record: " . $con->error;
     }
-    echo $_SESSION['news_id'];
+    //echo $_SESSION['news_id'];
     header('Location: news_controller.php');
 }
 
